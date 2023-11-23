@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'image',
             //'cover',
             //'config',
-            //'current_channal_id',
+            //'current_channel_id',
             //'verification_token',
             [
                 'class' => ActionColumn::className(),

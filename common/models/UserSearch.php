@@ -17,7 +17,7 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['id', 'type', 'status', 'role', 'created_at', 'updated_at', 'gender', 'verified', 'current_channal_id'], 'integer'],
+            [['id', 'type', 'status', 'role', 'created_at', 'updated_at', 'gender', 'verified', 'current_channel_id'], 'integer'],
             [['gid', 'username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'mobile', 'first_name', 'last_name', 'text', 'birthday', 'image', 'cover', 'config', 'verification_token'], 'safe'],
         ];
     }
@@ -67,7 +67,7 @@ class UserSearch extends User
             'gender' => $this->gender,
             'verified' => $this->verified,
             'birthday' => $this->birthday,
-            'current_channal_id' => $this->current_channal_id,
+            'current_channel_id' => $this->current_channel_id,
         ]);
 
         $query->andFilterWhere(['like', 'gid', $this->gid])

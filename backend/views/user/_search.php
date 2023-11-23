@@ -59,7 +59,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'config') ?>
 
-    <?php // echo $form->field($model, 'current_channal_id') ?>
+    <?php // echo $form->field($model, 'current_channel_id') ?>
 
     <?php // echo $form->field($model, 'verification_token') ?>
 

@@ -36,7 +36,7 @@ class m130524_201442_init extends Migration
             'image' => $this->string(250)->notNull(),
             'cover' => $this->string(250)->notNull(),
             'config' => $this->string(1000)->notNull(),
-            'current_channal_id' => $this->integer()->notNull()->defaultValue(0),
+            'current_channel_id' => $this->integer()->notNull()->defaultValue(0),
         ], $tableOptions);
     }
 
