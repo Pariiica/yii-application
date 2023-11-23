@@ -17,8 +17,8 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['id', 'type', 'role', 'status', 'created_at', 'updated_at', 'gender', 'verified'], 'integer'],
-            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'gid', 'mobile', 'first_name', 'last_name', 'text', 'birthday', 'image', 'cover', 'config', 'current_channal_id', 'verification_token'], 'safe'],
+            [['id', 'type', 'status', 'role', 'created_at', 'updated_at', 'gender', 'verified', 'current_channal_id'], 'integer'],
+            [['gid', 'username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'mobile', 'first_name', 'last_name', 'text', 'birthday', 'image', 'cover', 'config', 'verification_token'], 'safe'],
         ];
     }
 
@@ -60,21 +60,22 @@ class UserSearch extends User
         $query->andFilterWhere([
             'id' => $this->id,
             'type' => $this->type,
-            'role' => $this->role,
             'status' => $this->status,
+            'role' => $this->role,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'gender' => $this->gender,
             'verified' => $this->verified,
             'birthday' => $this->birthday,
+            'current_channal_id' => $this->current_channal_id,
         ]);
 
-        $query->andFilterWhere(['like', 'username', $this->username])
+        $query->andFilterWhere(['like', 'gid', $this->gid])
+            ->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'auth_key', $this->auth_key])
             ->andFilterWhere(['like', 'password_hash', $this->password_hash])
             ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
             ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'gid', $this->gid])
             ->andFilterWhere(['like', 'mobile', $this->mobile])
             ->andFilterWhere(['like', 'first_name', $this->first_name])
             ->andFilterWhere(['like', 'last_name', $this->last_name])
@@ -82,7 +83,6 @@ class UserSearch extends User
             ->andFilterWhere(['like', 'image', $this->image])
             ->andFilterWhere(['like', 'cover', $this->cover])
             ->andFilterWhere(['like', 'config', $this->config])
-            ->andFilterWhere(['like', 'current_channal_id', $this->current_channal_id])
             ->andFilterWhere(['like', 'verification_token', $this->verification_token]);
 
         return $dataProvider;

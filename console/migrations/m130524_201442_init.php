@@ -22,7 +22,7 @@ class m130524_201442_init extends Migration
             'password_reset_token' => $this->string(250)->unique(),
             'type' => $this->smallInteger()->notNull()->defaultValue(1),
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
-            'role' => $this->smallInteger()->notNull()->defaultValue('user'),
+            'role' => $this->smallInteger()->notNull()->defaultValue('1'),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
             'email' => $this->string(190)->notNull()->unique(),
