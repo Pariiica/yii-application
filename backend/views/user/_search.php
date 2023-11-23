@@ -25,13 +25,41 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'password_reset_token') ?>
 
+    <?php // echo $form->field($model, 'type') ?>
+
     <?php // echo $form->field($model, 'email') ?>
+
+    <?php // echo $form->field($model, 'role') ?>
 
     <?php // echo $form->field($model, 'status') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 
     <?php // echo $form->field($model, 'updated_at') ?>
+
+    <?php // echo $form->field($model, 'gid') ?>
+
+    <?php // echo $form->field($model, 'mobile') ?>
+
+    <?php // echo $form->field($model, 'first_name') ?>
+
+    <?php // echo $form->field($model, 'last_name') ?>
+
+    <?php // echo $form->field($model, 'text') ?>
+
+    <?php // echo $form->field($model, 'gender') ?>
+
+    <?php // echo $form->field($model, 'verified') ?>
+
+    <?php // echo $form->field($model, 'birthday') ?>
+
+    <?php // echo $form->field($model, 'image') ?>
+
+    <?php // echo $form->field($model, 'cover') ?>
+
+    <?php // echo $form->field($model, 'config') ?>
+
+    <?php // echo $form->field($model, 'current_channal_id') ?>
 
     <?php // echo $form->field($model, 'verification_token') ?>
 

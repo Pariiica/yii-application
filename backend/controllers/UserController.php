@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use yii;
 use common\models\User;
 use common\models\UserSearch;
 use yii\web\Controller;
@@ -13,7 +14,7 @@ use yii\filters\VerbFilter;
  */
 class UserController extends Controller
 {
-    /**
+/**
      * @inheritDoc
      */
     public function behaviors()
@@ -47,7 +48,7 @@ class UserController extends Controller
         ]);
     }
 
-    /**
+/**
      * Displays a single User model.
      * @param int $id
      * @return string
