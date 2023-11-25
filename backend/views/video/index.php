@@ -1,24 +1,24 @@
 <?php
 
-use common\models\User;
+use common\models\Video;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var common\models\UserSearch $searchModel */
+/** @var common\models\VideoSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = Yii::t('app', 'Users');
+$this->title = Yii::t('app', 'Videos');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-index">
+<div class="video-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Video'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -30,32 +30,32 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'gid',
-            'username',
-            'auth_key',
-            //'password_hash',
-            //'password_reset_token',
+            'did',
+            'title',
+            'description:ntext',
+            'slug',
+            //'image',
             //'type',
-            'status',
-            //'role',
+            //'status',
+            //'permission',
+            //'file_status',
             //'created_at',
             //'updated_at',
-            //'email:email',
-            //'mobile',
-            //'first_name',
-            //'last_name',
-            //'text',
-            //'gender',
-            //'verified',
-            //'birthday',
-            //'image',
-            //'cover',
+            //'published_at',
+            //'via',
+            //'tags',
+            //'length',
+            //'location',
+            //'manifest',
+            //'address',
+            //'source',
             //'config',
-            //'current_channel_id',
-            //'verification_token',
+            //'file_service_id',
+            //'channel_id',
+            //'user_id',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, User $model, $key, $index, $column) {
+                'urlCreator' => function ($action, Video $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],
