@@ -7,56 +7,39 @@ use yii\behaviors\AttributeBehavior;
 use yii\behaviors\TimestampBehavior;
 
 /**
- * This is the model class for table "channel".
+ * This is the model class for table "{{%channel}}".
  *
+ * @property int $id
  * @property string|null $did
- * @property string $username
+ * @property string|null $username
  * @property string $title
  * @property string|null $description
  * @property string|null $image
  * @property string|null $cover
  * @property int|null $type
- * @property int $status
- * @property int $created_at
- * @property int $updated_at
- * @property int $last_post_at
- * @property int $verified
- * @property string $tags
- * @property string $addresses
- * @property string $config
- * @property int $user_sid
- * @property int $user_id
- * @property int $pinned_video_id
+ * @property int|null $status
+ * @property int|null $created_at
+ * @property int|null $updated_at
+ * @property int|null $last_post_at
+ * @property int|null $verified
+ * @property string|null $tags
+ * @property string|null $addresses
+ * @property string|null $config
+ * @property int|null $user_id
+ * @property int|null $pinned_video_id
  * @property int|null $paid
  */
 class Channel extends \yii\db\ActiveRecord
 {
-    const TYPE_SYS = 1;
+    const TYPE_SYSTEM = 1;
+    const STATUS_DEFAULT = 1;
 
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'channel';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['username', 'title'], 'required'],
-            [['description', 'config'], 'string'],
-            [['type', 'status', 'created_at', 'updated_at', 'last_post_at','last_post_at','pinned_video_id','addresses', 'config', 'user_sid', 'verified', 'user_sid', 'user_id', 'pinned_video_id', 'paid'], 'integer'],
-            [['did'], 'string', 'max' => 8],
-            [['username'], 'string', 'max' => 190],
-            [['title'], 'string', 'max' => 500],
-            [['image', 'cover'], 'string', 'max' => 250],
-            [['tags', 'addresses'], 'string', 'max' => 1000],
-            [['username'], 'unique'],
-        ];
+        return '{{%channel}}';
     }
 
     public function behaviors()
@@ -67,16 +50,34 @@ class Channel extends \yii\db\ActiveRecord
                 'class' => AttributeBehavior::class,
                 'attributes' => [self::EVENT_BEFORE_INSERT => 'type'],
                 'value' => function () {
-                    return $this->type ?: self::TYPE_SYS;
+                    return $this->type ?: self::TYPE_SYSTEM;
                 }
             ],
             [
                 'class' => AttributeBehavior::class,
                 'attributes' => [self::EVENT_BEFORE_INSERT => 'status'],
                 'value' => function () {
-                    return $this->status ?: self::TYPE_SYS;
+                    return $this->status ?: self::STATUS_DEFAULT;
                 }
             ],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['title'], 'required'],
+            [['description', 'config'], 'string'],
+            [['type', 'status', 'created_at', 'updated_at', 'last_post_at', 'verified', 'user_id', 'pinned_video_id', 'paid'], 'integer'],
+            [['did'], 'string', 'max' => 8],
+            [['username'], 'string', 'max' => 190],
+            [['title'], 'string', 'max' => 500],
+            [['image', 'cover'], 'string', 'max' => 250],
+            [['tags', 'addresses'], 'string', 'max' => 1000],
+            [['username'], 'unique'],
         ];
     }
 
@@ -86,6 +87,7 @@ class Channel extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            'id' => Yii::t('app', 'ID'),
             'did' => Yii::t('app', 'Did'),
             'username' => Yii::t('app', 'Username'),
             'title' => Yii::t('app', 'Title'),
@@ -101,7 +103,6 @@ class Channel extends \yii\db\ActiveRecord
             'tags' => Yii::t('app', 'Tags'),
             'addresses' => Yii::t('app', 'Addresses'),
             'config' => Yii::t('app', 'Config'),
-            'user_sid' => Yii::t('app', 'User Sid'),
             'user_id' => Yii::t('app', 'User ID'),
             'pinned_video_id' => Yii::t('app', 'Pinned Video ID'),
             'paid' => Yii::t('app', 'Paid'),
@@ -112,7 +113,6 @@ class Channel extends \yii\db\ActiveRecord
      * {@inheritdoc}
      * @return ChannelQuery the active query used by this AR class.
      */
-
     public static function find()
     {
         return new ChannelQuery(get_called_class());

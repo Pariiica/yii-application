@@ -3,20 +3,19 @@
 use yii\db\Migration;
 
 /**
- * Class m231123_161749_create_tbl_channel
+ * Handles the creation of table `{{%channel}}`.
  */
-class m231123_161749_create_tbl_channel extends Migration
+class m231126_083430_create_channel_table extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $tableOptions = null;
-
         $this->createTable('{{%channel}}', [
+            'id' => $this->primaryKey(),
             'did' => $this->string(8),
-            'username' => $this->string(190)->notNull()->unique(),
+            'username' => $this->string(190)->unique(),
             'title' => $this->string(500)->notNull(),
             'description' => $this->text(),
             'image' => $this->string(250),
@@ -26,41 +25,27 @@ class m231123_161749_create_tbl_channel extends Migration
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),
             'last_post_at' => $this->integer(),
-            'verified' => $this->boolean()->defaultValue(false),
+            'verified' => $this->boolean(),
             'tags' => $this->string(1000),
             'addresses' => $this->string(1000),
             'config' => $this->text(),
-            'user_sid' => $this->integer(),
             'user_id' => $this->integer(),
             'pinned_video_id' => $this->integer(),
-            'paid' => $this->smallInteger(),
+            'paid' => $this->smallInteger(1),
+        ]);
 
-        ], $tableOptions);
+        $this->createIndex('idx_channel_id', '{{%channel}}','id');
+        $this->createIndex('idx_channel_username', '{{%channel}}','username');
+        $this->createIndex('idx_channel_title', '{{%channel}}','title');
+        $this->createIndex('idx_channel_user_id', '{{%channel}}','user_id');
+        $this->createIndex('idx_channel_pinned_video_id', '{{%channel}}','pinned_video_id');
     }
-
 
     /**
      * {@inheritdoc}
      */
     public function safeDown()
     {
-        echo "m231123_161749_create_tbl_channel cannot be reverted.\n";
-
-        return false;
+        $this->dropTable('{{%channel}}');
     }
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m231123_161749_create_tbl_channel cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }

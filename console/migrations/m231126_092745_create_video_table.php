@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%video}}`.
  */
-class m231124_100321_create_video_table extends Migration
+class m231126_092745_create_video_table extends Migration
 {
     /**
      * {@inheritdoc}
@@ -20,12 +20,12 @@ class m231124_100321_create_video_table extends Migration
             'slug' => $this->string(250),
             'image' => $this->string(1000),
             'type' => $this->smallInteger(),
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
+            'status' => $this->smallInteger(),
             'permission' => $this->smallInteger(),
             'file_status' => $this->smallInteger(),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
-            'published_at' => $this->integer()->notNull(),
+            'created_at' => $this->integer(),
+            'updated_at' => $this->integer(),
+            'published_at' => $this->integer(),
             'via' => $this->smallInteger(),
             'tags' => $this->string(1000),
             'length' => $this->integer(),
@@ -38,6 +38,12 @@ class m231124_100321_create_video_table extends Migration
             'channel_id' => $this->integer(),
             'user_id' => $this->integer(),
         ]);
+
+        $this->createIndex('idx_video_id', '{{%video}}', 'id');
+        $this->createIndex('idx_video_title', '{{%video}}', 'title');
+        $this->createIndex('idx_video_published_at', '{{%video}}', 'published_at');
+        $this->createIndex('idx_video_channel_id', '{{%video}}', 'channel_id');
+        $this->createIndex('idx_video_user_id', '{{%video}}', 'user_id');
     }
 
     /**

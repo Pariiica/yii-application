@@ -4,30 +4,46 @@ namespace common\models;
 
 use Yii;
 use yii\base\NotSupportedException;
+use yii\behaviors\AttributeBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * User model
+ * This is the model class for table "{{%user}}".
  *
- * @property integer $id
+ * @property int $id
+ * @property string $gid
  * @property string $username
  * @property string $auth_key
  * @property string $password_hash
- * @property string $password_reset_token
- * @property string $verification_token
+ * @property string|null $password_reset_token
+ * @property int $type
+ * @property int $status
+ * @property int $role
+ * @property int $created_at
+ * @property int $updated_at
  * @property string $email
- * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
- * @property string $password write-only password
+ * @property string $mobile
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $text
+ * @property int $gender
+ * @property int $verified
+ * @property string $birthday
+ * @property string $image
+ * @property string $cover
+ * @property string $config
+ * @property int $current_channel_id
+ * @property string|null $verification_token
  */
 class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
+    const TYPE_SYSTEM = 0;
+    const STATUS_DEFAULT = 0;
 
 
     /**
@@ -36,7 +52,7 @@ class User extends ActiveRecord implements IdentityInterface
     public static function tableName()
     {
         return '{{%user}}';
-}
+    }
 
     /**
      * {@inheritdoc}
@@ -45,6 +61,20 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             TimestampBehavior::class,
+            [
+                'class' => AttributeBehavior::class,
+                'attributes' => [self::EVENT_BEFORE_INSERT => 'type'],
+                'value' => function () {
+                    return $this->type ?: self::TYPE_SYSTEM;
+                }
+            ],
+            [
+                'class' => AttributeBehavior::class,
+                'attributes' => [self::EVENT_BEFORE_INSERT => 'status'],
+                'value' => function () {
+                    return $this->status ?: self::STATUS_DEFAULT;
+                }
+            ],
         ];
     }
 
@@ -54,9 +84,62 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_INACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+            [['username', 'auth_key', 'password_hash', 'created_at', 'updated_at', 'email', 'mobile', 'first_name', 'last_name', 'text', 'gender', 'birthday', 'image', 'cover', 'config'], 'required'],
+            [['type', 'status', 'role', 'created_at', 'updated_at', 'gender', 'verified', 'current_channel_id'], 'integer'],
+            [['birthday'], 'safe'],
+            [['gid', 'username', 'auth_key'], 'string', 'max' => 60],
+            [['password_hash', 'password_reset_token', 'first_name', 'last_name', 'image', 'cover'], 'string', 'max' => 250],
+            [['email'], 'string', 'max' => 190],
+            [['mobile'], 'string', 'max' => 13],
+            [['text'], 'string', 'max' => 500],
+            [['config'], 'string', 'max' => 1000],
+            [['verification_token'], 'string', 'max' => 255],
+            [['username'], 'unique'],
+            [['email'], 'unique'],
+            [['password_reset_token'], 'unique'],
         ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('app', 'ID'),
+            'gid' => Yii::t('app', 'Gid'),
+            'username' => Yii::t('app', 'Username'),
+            'auth_key' => Yii::t('app', 'Auth Key'),
+            'password_hash' => Yii::t('app', 'Password Hash'),
+            'password_reset_token' => Yii::t('app', 'Password Reset Token'),
+            'type' => Yii::t('app', 'Type'),
+            'status' => Yii::t('app', 'Status'),
+            'role' => Yii::t('app', 'Role'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
+            'email' => Yii::t('app', 'Email'),
+            'mobile' => Yii::t('app', 'Mobile'),
+            'first_name' => Yii::t('app', 'First Name'),
+            'last_name' => Yii::t('app', 'Last Name'),
+            'text' => Yii::t('app', 'Text'),
+            'gender' => Yii::t('app', 'Gender'),
+            'verified' => Yii::t('app', 'Verified'),
+            'birthday' => Yii::t('app', 'Birthday'),
+            'image' => Yii::t('app', 'Image'),
+            'cover' => Yii::t('app', 'Cover'),
+            'config' => Yii::t('app', 'Config'),
+            'current_channel_id' => Yii::t('app', 'Current Channel ID'),
+            'verification_token' => Yii::t('app', 'Verification Token'),
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     * @return UserQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new UserQuery(get_called_class());
     }
 
     /**

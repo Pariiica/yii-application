@@ -17,27 +17,32 @@ class m130524_201442_init extends Migration
             'id' => $this->primaryKey(),
             'gid' => $this->string(60)->notNull()->defaultValue('user'),
             'username' => $this->string(60)->notNull()->unique(),
-            'auth_key' => $this->string(60)->notNull(),
-            'password_hash' => $this->string(250)->notNull(),
+            'auth_key' => $this->string(60),
+            'password_hash' => $this->string(250),
             'password_reset_token' => $this->string(250)->unique(),
-            'type' => $this->smallInteger()->notNull()->defaultValue(1),
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
-            'role' => $this->smallInteger()->notNull()->defaultValue('1'),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'type' => $this->smallInteger(),
+            'status' => $this->smallInteger()->defaultValue(10),
+            'role' => $this->smallInteger(),
+            'created_at' => $this->integer(),
+            'updated_at' => $this->integer(),
             'email' => $this->string(190)->notNull()->unique(),
-            'mobile' => $this->string(13)->notNull(),
+            'mobile' => $this->string(13),
             'first_name' => $this->string(250)->notNull(),
             'last_name' => $this->string(250)->notNull(),
-            'text' => $this->string(500)->notNull(),
-            'gender' => $this->smallInteger()->notNull(),
-            'verified' => $this->smallInteger(1)->notNull()->defaultValue(false),
-            'birthday' => $this->date()->notNull(),
-            'image' => $this->string(250)->notNull(),
-            'cover' => $this->string(250)->notNull(),
-            'config' => $this->string(1000)->notNull(),
-            'current_channel_id' => $this->integer()->notNull()->defaultValue(0),
+            'text' => $this->string(500),
+            'gender' => $this->smallInteger(),
+            'verified' => $this->smallInteger(1),
+            'birthday' => $this->date(),
+            'image' => $this->string(250),
+            'cover' => $this->string(250),
+            'config' => $this->string(1000),
+            'current_channel_id' => $this->integer(),
         ], $tableOptions);
+
+        $this->createIndex('idx_user_id', '{{%user}}','id');
+        $this->createIndex('idx-user-username', '{{%user}}', 'username');
+        $this->createIndex('idx-user-email', '{{%user}}', 'email');
+        $this->createIndex('idx-user-current_channel_id', '{{%user}}', 'current_channel_id');
     }
 
     public function down()
