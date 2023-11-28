@@ -29,8 +29,9 @@ class m231126_113304_create_playlist_table extends Migration
             'channel_id' => $this->integer(),
             'user_id' => $this->integer(),
         ]);
-        $this->createIndex('idx_playlist', '{{%playlist}}', ['id', 'created_at', 'type', 'status',
-            'channel_id','user_id']);
+        $this->createIndex('idx_playlist', '{{%playlist}}', ['id', 'created_at', 'type', 'status', 'channel_id','user_id']);
+        $this->addForeignKey('fk_playlist_channel_id','{{%playlist}}','channel_id','channel');
+        $this->addForeignKey('fk_playlist_user_id','{{%playlist}}','user_id','user');
     }
 
     /**
@@ -39,5 +40,8 @@ class m231126_113304_create_playlist_table extends Migration
     public function safeDown()
     {
         $this->dropTable('{{%playlist}}');
+        $this->dropIndex('idx_playlist','{{%playlist}}');
+        $this->dropForeignKey('fk_playlist_channel_id','{{%playlist}}');
+        $this->dropForeignKey('fk_playlist_user_id','{{%playlist}}');
     }
 }

@@ -34,8 +34,9 @@ class m231126_083430_create_channel_table extends Migration
             'paid' => $this->smallInteger(1),
         ]);
 
-        $this->createIndex('idx_channel', '{{%channel}}',['id', 'username', 'type', 'status',
-            'user_id', 'pinned_video_id']);
+        $this->createIndex('idx_channel', '{{%channel}}',['id', 'username', 'type', 'status','user_id', 'pinned_video_id']);
+        $this->addForeignKey('fk_channel_user_id','{{%video}}','user_id','user');
+
     }
 
     /**
@@ -44,5 +45,7 @@ class m231126_083430_create_channel_table extends Migration
     public function safeDown()
     {
         $this->dropTable('{{%channel}}');
+        $this->dropIndex('idx_channel', '{{%channel}}');
+        $this->dropForeignKey('fk_channel_user_id','{{%user}}');
     }
 }
