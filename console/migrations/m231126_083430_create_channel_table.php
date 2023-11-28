@@ -26,19 +26,16 @@ class m231126_083430_create_channel_table extends Migration
             'updated_at' => $this->integer(),
             'last_post_at' => $this->integer(),
             'verified' => $this->boolean(),
-            'tags' => $this->string(1000),
-            'addresses' => $this->string(1000),
+            'tags' => $this->string(500),
+            'addresses' => $this->string(500),
             'config' => $this->text(),
             'user_id' => $this->integer(),
             'pinned_video_id' => $this->integer(),
             'paid' => $this->smallInteger(1),
         ]);
 
-        $this->createIndex('idx_channel_id', '{{%channel}}','id');
-        $this->createIndex('idx_channel_username', '{{%channel}}','username');
-        $this->createIndex('idx_channel_title', '{{%channel}}','title');
-        $this->createIndex('idx_channel_user_id', '{{%channel}}','user_id');
-        $this->createIndex('idx_channel_pinned_video_id', '{{%channel}}','pinned_video_id');
+        $this->createIndex('idx_channel', '{{%channel}}',['id', 'username', 'type', 'status',
+            'user_id', 'pinned_video_id']);
     }
 
     /**

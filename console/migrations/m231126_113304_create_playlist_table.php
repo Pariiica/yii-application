@@ -29,12 +29,8 @@ class m231126_113304_create_playlist_table extends Migration
             'channel_id' => $this->integer(),
             'user_id' => $this->integer(),
         ]);
-
-        $this->createIndex('idx_playlist_id', '{{%playlist}}', 'id');
-        $this->createIndex('idx_playlist_title', '{{%playlist}}', 'title');
-        $this->createIndex('idx_playlist_created_at', '{{%playlist}}', 'created_at');
-        $this->createIndex('idx_playlist_channel_id', '{{%playlist}}', 'channel_id');
-        $this->createIndex('idx_playlist_user_id', '{{%playlist}}', 'user_id');
+        $this->createIndex('idx_playlist', '{{%playlist}}', ['id', 'created_at', 'type', 'status',
+            'channel_id','user_id']);
     }
 
     /**

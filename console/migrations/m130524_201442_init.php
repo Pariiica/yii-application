@@ -16,6 +16,7 @@ class m130524_201442_init extends Migration
         $this->createTable('{{%user}}', [
             'id' => $this->primaryKey(),
             'gid' => $this->string(60)->notNull()->defaultValue('user'),
+            'did' => $this->string(8),
             'username' => $this->string(60)->notNull()->unique(),
             'auth_key' => $this->string(60),
             'password_hash' => $this->string(250),
@@ -39,10 +40,7 @@ class m130524_201442_init extends Migration
             'current_channel_id' => $this->integer(),
         ], $tableOptions);
 
-        $this->createIndex('idx_user_id', '{{%user}}','id');
-        $this->createIndex('idx-user-username', '{{%user}}', 'username');
-        $this->createIndex('idx-user-email', '{{%user}}', 'email');
-        $this->createIndex('idx-user-current_channel_id', '{{%user}}', 'current_channel_id');
+        $this->createIndex('idx_user', '{{%user}}',['id', 'username','updated_at','type','status','current_channel_id']);
     }
 
     public function down()

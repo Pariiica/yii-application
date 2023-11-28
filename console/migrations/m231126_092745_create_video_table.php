@@ -34,16 +34,13 @@ class m231126_092745_create_video_table extends Migration
             'address' => $this->string(250),
             'source' => $this->string(700),
             'config' => $this->integer(),
-            'file_service_id' => $this->string(1000),
+            'file_service_id' => $this->string(100),
             'channel_id' => $this->integer(),
             'user_id' => $this->integer(),
         ]);
 
-        $this->createIndex('idx_video_id', '{{%video}}', 'id');
-        $this->createIndex('idx_video_title', '{{%video}}', 'title');
-        $this->createIndex('idx_video_published_at', '{{%video}}', 'published_at');
-        $this->createIndex('idx_video_channel_id', '{{%video}}', 'channel_id');
-        $this->createIndex('idx_video_user_id', '{{%video}}', 'user_id');
+        $this->createIndex('idx_video', '{{%video}}', ['id', 'type', 'status', 'published_at',
+            'channel_id', 'user_id']);
     }
 
     /**
