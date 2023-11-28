@@ -30,8 +30,8 @@ class m231126_113304_create_playlist_table extends Migration
             'user_id' => $this->integer(),
         ]);
         $this->createIndex('idx_playlist', '{{%playlist}}', ['id', 'created_at', 'type', 'status', 'channel_id','user_id']);
-        $this->addForeignKey('fk_playlist_channel_id','{{%playlist}}','channel_id','channel');
-        $this->addForeignKey('fk_playlist_user_id','{{%playlist}}','user_id','user');
+        $this->addForeignKey('fk_playlist_channel_id','{{%playlist}}','channel_id','channel','id');
+        $this->addForeignKey('fk_playlist_user_id','{{%playlist}}','user_id','user','id');
     }
 
     /**

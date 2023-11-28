@@ -35,7 +35,7 @@ class m231126_083430_create_channel_table extends Migration
         ]);
 
         $this->createIndex('idx_channel', '{{%channel}}',['id', 'username', 'type', 'status','user_id', 'pinned_video_id']);
-        $this->addForeignKey('fk_channel_user_id','{{%video}}','user_id','user');
+        $this->addForeignKey('fk_channel_user_id','{{%channel}}','user_id','user','id');
 
     }
 
