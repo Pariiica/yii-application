@@ -45,7 +45,7 @@ class m130524_201442_init extends Migration
 
     public function down()
     {
-        $this->dropTable('{{%user}}');
         $this->dropIndex('idx_user','{{%user}}');
+        $this->dropTable('{{%user}}');
     }
 }
