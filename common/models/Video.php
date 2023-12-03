@@ -37,7 +37,9 @@ use yii\behaviors\TimestampBehavior;
 class Video extends \yii\db\ActiveRecord
 {
     const TYPE_SYSTEM = 2;
-    const STATUS_DEFAULT = 2;
+    const STATUS_DEFAULT = 10;
+
+    public $category;
 
     /**
      * {@inheritdoc}
@@ -74,6 +76,7 @@ class Video extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['title','slug'],'required'],
             [['description'], 'string'],
             [['type', 'status', 'permission', 'file_status', 'created_at', 'updated_at', 'published_at', 'via', 'length', 'config', 'channel_id', 'user_id'], 'integer'],
             [['did'], 'string', 'max' => 8],

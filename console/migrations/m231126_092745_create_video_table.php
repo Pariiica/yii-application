@@ -15,9 +15,9 @@ class m231126_092745_create_video_table extends Migration
         $this->createTable('{{%video}}', [
             'id' => $this->primaryKey(),
             'did' => $this->string(8),
-            'title' => $this->string(500),
+            'title' => $this->string(500)->notnull(),
             'description' => $this->text(),
-            'slug' => $this->string(250),
+            'slug' => $this->string(250)->notNull()->unique(),
             'image' => $this->string(1000),
             'type' => $this->smallInteger(),
             'status' => $this->smallInteger(),

@@ -4,7 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\AttributeBehavior;
-use const Grpc\STATUS_ABORTED;
+
 
 /**
  * This is the model class for table "{{%category}}".
@@ -62,6 +62,7 @@ class Category extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name', 'slug'], 'required'],
             [['description', 'tags'], 'string'],
             [['type', 'status', 'sequence', 'parent_id'], 'integer'],
             [['name', 'slug'], 'string', 'max' => 500],
