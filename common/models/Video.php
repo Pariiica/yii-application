@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use Hashids\Hashids;
 use Yii;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -67,6 +68,18 @@ class Video extends \yii\db\ActiveRecord
                     return $this->status ?: self::STATUS_DEFAULT;
                 }
             ],
+            [
+                'class' => AttributeBehavior::class,
+                'attributes' => [self::EVENT_BEFORE_INSERT => 'user_id'],
+                'value' => function () {
+                    if (!Yii::$app->user->isGuest) {
+                        return Yii::$app->user->id;
+                    }
+
+                    return null;
+                }
+            ],
+
         ];
     }
 
@@ -76,7 +89,7 @@ class Video extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title','slug'],'required'],
+            [['title'],'required'],
             [['description'], 'string'],
             [['type', 'status', 'permission', 'file_status', 'created_at', 'updated_at', 'published_at', 'via', 'length', 'config', 'channel_id', 'user_id'], 'integer'],
             [['did'], 'string', 'max' => 8],
@@ -128,5 +141,22 @@ class Video extends \yii\db\ActiveRecord
     public static function find()
     {
         return new VideoQuery(get_called_class());
+    }
+
+    public function init()
+    {
+        parent::init();
+
+        $this->on(self::EVENT_AFTER_INSERT, [$this,'addDisplayId']);
+    }
+
+    //yii::debug(message, category)
+    public function addDisplayId()
+    {
+        $hashids = new Hashids('channel', 8);
+        $did = $hashids->encode($this->id);
+
+        $this->did = $did;
+        $this->save();
     }
 }

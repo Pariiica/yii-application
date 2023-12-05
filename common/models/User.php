@@ -220,6 +220,11 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * {@inheritdoc}
      */
+    public function init()
+    {
+        parent::init();
+        $this->on(self::EVENT_AFTER_INSERT, [$this,'getId']);
+    }
     public function getId()
     {
         return $this->getPrimaryKey();

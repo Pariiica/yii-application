@@ -17,7 +17,7 @@ class m231126_092745_create_video_table extends Migration
             'did' => $this->string(8),
             'title' => $this->string(500)->notnull(),
             'description' => $this->text(),
-            'slug' => $this->string(250)->notNull()->unique(),
+            'slug' => $this->string(250)->defaultValue('genre'),
             'image' => $this->string(1000),
             'type' => $this->smallInteger(),
             'status' => $this->smallInteger(),
@@ -41,7 +41,7 @@ class m231126_092745_create_video_table extends Migration
 
         $this->createIndex('idx_video', '{{%video}}', ['id', 'type', 'status', 'published_at','channel_id','user_id']);
         $this->addForeignKey('fk_video_channel_id','{{%video}}','channel_id','channel', 'id');
-        $this->addForeignKey('fk_video_user_id','{{%video}}','user_id','{{%video}}', 'id');
+        $this->addForeignKey('fk_video_user_id','{{%video}}','user_id','user', 'id');
     }
 
     /**
