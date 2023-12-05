@@ -40,6 +40,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'tags')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'category')->dropDownList([
+        1 => 'test',
+        2 => 'test2'
+    ]) ?>
     <?= $form->field($model, 'length')->textInput() ?>
 
     <?= $form->field($model, 'location')->textInput(['maxlength' => true]) ?>

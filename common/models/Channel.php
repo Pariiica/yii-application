@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use Hashids\Hashids;
 use Yii;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -107,6 +108,23 @@ class Channel extends \yii\db\ActiveRecord
             'pinned_video_id' => Yii::t('app', 'Pinned Video ID'),
             'paid' => Yii::t('app', 'Paid'),
         ];
+    }
+
+    public function init()
+    {
+        parent::init();
+
+        $this->on(self::EVENT_AFTER_INSERT, [$this,'addDisplayId']);
+    }
+
+    //yii::debug(message, category)
+    public function addDisplayId()
+    {
+        $hashids = new Hashids('channel', 8);
+        $did = $hashids->encode($this->id);
+
+        $this->did = $did;
+        $this->save();
     }
 
     /**
