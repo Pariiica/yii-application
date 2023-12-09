@@ -6,6 +6,7 @@ use Hashids\Hashids;
 use Yii;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%video}}".
@@ -35,7 +36,7 @@ use yii\behaviors\TimestampBehavior;
  * @property int|null $channel_id
  * @property int|null $user_id
  */
-class Video extends \yii\db\ActiveRecord
+class Video extends ActiveRecord
 {
     const TYPE_SYSTEM = 2;
     const STATUS_DEFAULT = 10;
@@ -95,7 +96,8 @@ class Video extends \yii\db\ActiveRecord
             [['did'], 'string', 'max' => 8],
             [['title', 'manifest'], 'string', 'max' => 500],
             [['slug', 'address'], 'string', 'max' => 250],
-            [['image', 'tags', 'file_service_id'], 'string', 'max' => 1000],
+            [['tags', 'file_service_id'], 'string', 'max' => 1000],
+            [['image'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
             [['location'], 'string', 'max' => 60],
             [['source'], 'string', 'max' => 700],
         ];
