@@ -9,6 +9,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * VideoController implements the CRUD actions for Video model.
@@ -79,15 +80,32 @@ class VideoController extends Controller
     public function actionCreate()
     {
         $model = new Video();
+        $model->image = UploadedFile::getInstance($model, 'image');
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            $model->load($this->request->post());
+
+            $date = date('Y-m-d');
+            $path = '@backend/web/img/' . $date;
+            $file = UploadedFile::getInstance($model,'image');
+
+            if (!is_dir(yii::getAlias($path))) {
+                mkdir(yii::getAlias($path), 0755, true);
+            }
+
+            if ($file) {
+                $filename = $file->baseName . '.' . $file->extension;
+                $file->saveAs(Yii::getAlias($path) . '/' . $filename);
+                $model->image = $path . '/' . $filename;
+            }
+
+            if ($model->validate() && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
+        }
+        else {
             $model->loadDefaultValues();
         }
-
         return $this->render('create', [
             'model' => $model,
         ]);
