@@ -4,6 +4,7 @@ namespace common\models;
 
 use Hashids\Hashids;
 use Yii;
+use yii\base\Event;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -68,6 +69,10 @@ class Video extends ActiveRecord
                 'value' => function () {
                     return $this->status ?: self::STATUS_DEFAULT;
                 }
+            ],
+            [
+                'class' => UploadImageBehavior::class,
+                'attributes' => 'image',
             ],
             [
                 'class' => AttributeBehavior::class,

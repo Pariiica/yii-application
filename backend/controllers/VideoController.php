@@ -77,40 +77,23 @@ class VideoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
+
     public function actionCreate()
     {
         $model = new Video();
-        $model->image = UploadedFile::getInstance($model, 'image');
 
         if ($this->request->isPost) {
-            $model->load($this->request->post());
-
-            $date = date('Y-m-d');
-            $path = '@backend/web/img/' . $date;
-            $file = UploadedFile::getInstance($model,'image');
-
-            if (!is_dir(yii::getAlias($path))) {
-                mkdir(yii::getAlias($path), 0755, true);
-            }
-
-            if ($file) {
-                $filename = $file->baseName . '.' . $file->extension;
-                $file->saveAs(Yii::getAlias($path) . '/' . $filename);
-                $model->image = $path . '/' . $filename;
-            }
-
-            if ($model->validate() && $model->save()) {
+            if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-        }
-        else {
+        } else {
             $model->loadDefaultValues();
         }
+
         return $this->render('create', [
             'model' => $model,
         ]);
     }
-
     /**
      * Updates an existing Video model.
      * If update is successful, the browser will be redirected to the 'view' page.
