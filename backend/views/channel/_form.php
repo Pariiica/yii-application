@@ -44,8 +44,6 @@ foreach ($users as $user) {
 
     <?= $form->field($model, 'user_id')->dropDownList($userArray) ?>
 
-    <?= $form->field($model, 'paid')->textInput() ?>
-
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>

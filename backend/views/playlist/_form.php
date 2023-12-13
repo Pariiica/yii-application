@@ -12,8 +12,6 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'did')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
@@ -24,17 +22,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'type')->textInput() ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'sequence')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
     <?= $form->field($model, 'tags')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'config')->textInput() ?>
 
     <?= $form->field($model, 'channel_id')->textInput() ?>
 
