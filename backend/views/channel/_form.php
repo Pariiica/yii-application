@@ -29,9 +29,9 @@ foreach ($users as $user) {
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'image')->fileInput() ?>
 
-    <?= $form->field($model, 'cover')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'cover')->fileInput() ?>
 
     <?= $form->field($model, 'type')->dropDownList([
 

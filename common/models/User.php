@@ -69,6 +69,10 @@ class User extends ActiveRecord implements IdentityInterface
                 }
             ],
             [
+                'class' => UploadImageBehavior::class,
+                'attributes' => 'image',
+            ],
+            [
                 'class' => AttributeBehavior::class,
                 'attributes' => [self::EVENT_BEFORE_INSERT => 'status'],
                 'value' => function () {
@@ -88,7 +92,8 @@ class User extends ActiveRecord implements IdentityInterface
             [['type', 'status', 'role', 'created_at', 'updated_at', 'gender', 'verified', 'current_channel_id'], 'integer'],
             [['birthday'], 'safe'],
             [['gid', 'username', 'auth_key'], 'string', 'max' => 60],
-            [['password_hash', 'password_reset_token', 'first_name', 'last_name', 'image', 'cover'], 'string', 'max' => 250],
+            [['password_hash', 'password_reset_token', 'first_name', 'last_name'], 'string', 'max' => 250],
+            [['image', 'cover'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
             [['email'], 'string', 'max' => 190],
             [['mobile'], 'string', 'max' => 13],
             [['text'], 'string', 'max' => 500],

@@ -14,7 +14,7 @@ use yii\behaviors\TimestampBehavior;
  * @property string|null $title
  * @property string|null $description
  * @property string|null $slug
- * @property string|null $image
+ * @property null $image
  * @property int|null $type
  * @property int|null $status
  * @property int|null $sequence
@@ -50,6 +50,10 @@ class Playlist extends \yii\db\ActiveRecord
                 }
             ],
             [
+                'class' => UploadImageBehavior::class,
+                'attributes' => 'image'
+            ],
+            [
                 'class' => AttributeBehavior::class,
                 'attributes' => [self::EVENT_BEFORE_INSERT => 'status'],
                 'value' => function () {
@@ -69,7 +73,8 @@ class Playlist extends \yii\db\ActiveRecord
             [['type', 'status', 'sequence', 'created_at', 'updated_at', 'config', 'channel_id', 'user_id'], 'integer'],
             [['did'], 'string', 'max' => 8],
             [['title'], 'string', 'max' => 500],
-            [['slug', 'image'], 'string', 'max' => 250],
+            [['slug'], 'string', 'max' => 250],
+            [['image'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
             [['tags'], 'string', 'max' => 1000],
         ];
     }

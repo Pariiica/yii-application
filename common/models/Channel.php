@@ -15,8 +15,8 @@ use yii\behaviors\TimestampBehavior;
  * @property string|null $username
  * @property string $title
  * @property string|null $description
- * @property string|null $image
- * @property string|null $cover
+ * @property null $image
+ * @property null $cover
  * @property int|null $type
  * @property int|null $status
  * @property int|null $created_at
@@ -55,6 +55,10 @@ class Channel extends \yii\db\ActiveRecord
                 }
             ],
             [
+                'class' => UploadImageBehavior::class,
+                'attributes' => 'image',
+            ],
+            [
                 'class' => AttributeBehavior::class,
                 'attributes' => [self::EVENT_BEFORE_INSERT => 'status'],
                 'value' => function () {
@@ -76,7 +80,7 @@ class Channel extends \yii\db\ActiveRecord
             [['did'], 'string', 'max' => 8],
             [['username'], 'string', 'max' => 190],
             [['title'], 'string', 'max' => 500],
-            [['image', 'cover'], 'string', 'max' => 250],
+            [['image', 'cover'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
             [['tags', 'addresses'], 'string', 'max' => 1000],
             [['username'], 'unique'],
         ];

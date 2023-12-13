@@ -37,9 +37,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'birthday')->textInput() ?>
 
-    <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'image')->fileInput() ?>
 
-    <?= $form->field($model, 'cover')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'cover')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
