@@ -10,7 +10,6 @@ use yii\web\UploadedFile;
 class UploadImageBehavior extends Behavior
 {
     public $attributes = [];
-    public $value = [];
 
     public function events(): array
     {
@@ -22,20 +21,22 @@ class UploadImageBehavior extends Behavior
 
     public function beforeSave($event)
     {
+        foreach ($this->attributes as $attribute) {
 
-        $attributes = $this->attributes;
-        $model = $this->owner;
-        $date = date('Y-m-d');
-        $path = '@backend/web/img/' . $date;
-        $file = UploadedFile::getInstance( $this->owner, $attributes);
+            $year_path = '@backend/web/img/' . date('Y') . '/';
+            $month_path = $year_path  . date('m') . '/';
+            $path = $month_path . date('d') . '/';
 
-        if (!is_dir(Yii::getAlias($path))) {
-            mkdir(Yii::getAlias($path), 0755, true);
-        }
-        if ($file) {
-            $filename = $file->baseName . '.' . $file->extension;
-            $file->saveAs(Yii::getAlias($path) . '/' . $filename);
-            $this->owner->$attributes = $path . '/' . $filename;
+            $file = UploadedFile::getInstance($this->owner, $attribute);
+
+            if (!is_dir(Yii::getAlias($path))) {
+                mkdir(Yii::getAlias($path), 0755, true);
+            }
+            if ($file) {
+                $filename = $file->baseName . '.' . $file->extension;
+                $file->saveAs(Yii::getAlias($path) . '/' . $filename);
+                $this->owner->$attribute = $path . '/' . $filename;
+            }
         }
     }
 }
