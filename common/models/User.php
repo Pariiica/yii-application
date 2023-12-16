@@ -70,7 +70,7 @@ class User extends ActiveRecord implements IdentityInterface
             ],
             [
                 'class' => UploadImageBehavior::class,
-                'attributes' => 'image',
+                'attributes' => ['image','cover'],
             ],
             [
                 'class' => AttributeBehavior::class,

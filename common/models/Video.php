@@ -72,7 +72,7 @@ class Video extends ActiveRecord
             ],
             [
                 'class' => UploadImageBehavior::class,
-                'attributes' => 'image',
+                'attributes' => ['image'],
             ],
             [
                 'class' => AttributeBehavior::class,

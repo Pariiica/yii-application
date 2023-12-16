@@ -51,7 +51,7 @@ class Playlist extends \yii\db\ActiveRecord
             ],
             [
                 'class' => UploadImageBehavior::class,
-                'attributes' => 'image'
+                'attributes' => ['image']
             ],
             [
                 'class' => AttributeBehavior::class,
