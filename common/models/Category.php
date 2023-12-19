@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\AttributeBehavior;
+use common\dictionaries\Status;
 
 
 /**
@@ -24,10 +25,6 @@ use yii\behaviors\AttributeBehavior;
  */
 class Category extends \yii\db\ActiveRecord
 {
-    const TYPE_SYSTEM = 0;
-    const TYPE_STATUS = 10;
-
-
     /**
      * {@inheritdoc}
      */
@@ -43,14 +40,14 @@ class Category extends \yii\db\ActiveRecord
                 'class' => AttributeBehavior::class,
                 'attributes' => [self::EVENT_BEFORE_INSERT => 'type'],
                 'value' => function () {
-                    return $this->type ?: self::TYPE_SYSTEM;
+                    return $this->type ?: Status::STATUS_DEFAULT;
                 }
             ],
             [
                 'class' => AttributeBehavior::class,
                 'attributes' => [self::EVENT_BEFORE_INSERT => 'status'],
                 'value' => function () {
-                    return $this->status ?: self::TYPE_STATUS;
+                    return $this->status ?: Status::STATUS_DEFAULT;
                 }
             ]
         ];

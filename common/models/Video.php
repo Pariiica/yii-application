@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\dictionaries\Status;
 use Hashids\Hashids;
 use Yii;
 use yii\base\Event;
@@ -39,9 +40,6 @@ use yii\db\ActiveRecord;
  */
 class Video extends ActiveRecord
 {
-    const TYPE_SYSTEM = 2;
-    const STATUS_DEFAULT = 10;
-
     public $category;
 
     /**
@@ -60,14 +58,14 @@ class Video extends ActiveRecord
                 'class' => AttributeBehavior::class,
                 'attributes' => [self::EVENT_BEFORE_INSERT => 'type'],
                 'value' => function () {
-                    return $this->type ?: self::TYPE_SYSTEM;
+                    return $this->type ?: Status::STATUS_DEFAULT;
                 }
             ],
             [
                 'class' => AttributeBehavior::class,
                 'attributes' => [self::EVENT_BEFORE_INSERT => 'status'],
                 'value' => function () {
-                    return $this->status ?: self::STATUS_DEFAULT;
+                    return $this->status ?: Status::STATUS_DEFAULT;
                 }
             ],
             [

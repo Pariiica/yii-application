@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\dictionaries\Status;
 use Hashids\Hashids;
 use Yii;
 use yii\behaviors\AttributeBehavior;
@@ -32,9 +33,6 @@ use yii\behaviors\TimestampBehavior;
  */
 class Channel extends \yii\db\ActiveRecord
 {
-    const TYPE_SYSTEM = 1;
-    const STATUS_DEFAULT = 10;
-
     /**
      * {@inheritdoc}
      */
@@ -51,7 +49,7 @@ class Channel extends \yii\db\ActiveRecord
                 'class' => AttributeBehavior::class,
                 'attributes' => [self::EVENT_BEFORE_INSERT => 'type'],
                 'value' => function () {
-                    return $this->type ?: self::TYPE_SYSTEM;
+                    return $this->type ?: Status::STATUS_DEFAULT;
                 }
             ],
             [
@@ -62,7 +60,7 @@ class Channel extends \yii\db\ActiveRecord
                 'class' => AttributeBehavior::class,
                 'attributes' => [self::EVENT_BEFORE_INSERT => 'status'],
                 'value' => function () {
-                    return $this->status ?: self::STATUS_DEFAULT;
+                    return $this->status ?: Status::STATUS_DEFAULT;
                 }
             ],
         ];
