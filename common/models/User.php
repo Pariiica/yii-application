@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\dictionaries\Status;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\AttributeBehavior;
@@ -39,13 +40,6 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const STATUS_DELETED = 0;
-    const STATUS_INACTIVE = 9;
-    const STATUS_ACTIVE = 10;
-    const TYPE_SYSTEM = 0;
-    const STATUS_DEFAULT = 10;
-
-
     /**
      * {@inheritdoc}
      */
@@ -65,7 +59,7 @@ class User extends ActiveRecord implements IdentityInterface
                 'class' => AttributeBehavior::class,
                 'attributes' => [self::EVENT_BEFORE_INSERT => 'type'],
                 'value' => function () {
-                    return $this->type ?: self::TYPE_SYSTEM;
+                    return $this->type ?: Status::STATUS_DEFAULT;
                 }
             ],
             [
@@ -76,7 +70,7 @@ class User extends ActiveRecord implements IdentityInterface
                 'class' => AttributeBehavior::class,
                 'attributes' => [self::EVENT_BEFORE_INSERT => 'status'],
                 'value' => function () {
-                    return $this->status ?: self::STATUS_DEFAULT;
+                    return $this->status ?: Status::STATUS_DEFAULT;
                 }
             ],
         ];
@@ -152,7 +146,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['id' => $id, 'status' => Status::STATUS_ACTIVE]);
     }
 
     /**
@@ -171,7 +165,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['username' => $username, 'status' => Status::STATUS_ACTIVE]);
     }
 
     /**
@@ -188,7 +182,7 @@ class User extends ActiveRecord implements IdentityInterface
 
         return static::findOne([
             'password_reset_token' => $token,
-            'status' => self::STATUS_ACTIVE,
+            'status' => Status::STATUS_ACTIVE,
         ]);
     }
 
@@ -201,7 +195,7 @@ class User extends ActiveRecord implements IdentityInterface
     public static function findByVerificationToken($token) {
         return static::findOne([
             'verification_token' => $token,
-            'status' => self::STATUS_INACTIVE
+            'status' => Status::STATUS_INACTIVE
         ]);
     }
 
