@@ -43,7 +43,7 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
     const TYPE_SYSTEM = 0;
-    const STATUS_DEFAULT = 0;
+    const STATUS_DEFAULT = 10;
 
 
     /**

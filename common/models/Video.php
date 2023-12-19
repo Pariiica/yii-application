@@ -164,6 +164,7 @@ class Video extends ActiveRecord
         $did = $hashids->encode($this->id);
 
         $this->did = $did;
-        $this->save();
+        $this->save(false);
+        // false is for preventing updating after saving the video model
     }
 }

@@ -20,7 +20,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'image')->fileInput() ?>
 
-    <?= $form->field($model, 'type')->textInput() ?>
+    <?= $form->field($model, 'type')->dropDownList([
+            \common\models\Playlist::TYPE_SYSTEM => 'public', 'private'
+    ]) ?>
 
     <?= $form->field($model, 'tags')->textInput(['maxlength' => true]) ?>
 

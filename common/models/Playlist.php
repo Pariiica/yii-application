@@ -28,7 +28,7 @@ use yii\behaviors\TimestampBehavior;
 class Playlist extends \yii\db\ActiveRecord
 {
     const TYPE_SYSTEM = 3;
-    const STATUS_DEFAULT = 3;
+    const STATUS_DEFAULT = 10;
 
     /**
      * {@inheritdoc}
