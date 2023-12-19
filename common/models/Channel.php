@@ -33,7 +33,7 @@ use yii\behaviors\TimestampBehavior;
 class Channel extends \yii\db\ActiveRecord
 {
     const TYPE_SYSTEM = 1;
-    const STATUS_DEFAULT = 1;
+    const STATUS_DEFAULT = 10;
 
     /**
      * {@inheritdoc}
