@@ -3,7 +3,6 @@
 namespace common\widgets;
 
 use yii\base\Widget;
-use common\traits\StatusTrait;
 
 class Status extends Widget
 {

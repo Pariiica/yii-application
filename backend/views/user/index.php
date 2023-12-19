@@ -32,11 +32,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'gid',
             'username',
-            'auth_key',
+            //'auth_key',
             //'password_hash',
             //'password_reset_token',
             //'type',
-            'status',
+            [
+                'attribute' => 'status',
+                'value' => function ($model) {
+                    return \common\widgets\Status::widget(['status' => $model->status]);
+                }
+            ],
             //'role',
             //'created_at',
             //'updated_at',

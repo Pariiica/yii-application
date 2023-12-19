@@ -33,11 +33,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'did',
             'username',
             'title',
-            'description:ntext',
+            'description:text',
             //'image',
             //'cover',
             //'type',
-            //'status',
+            [
+                'attribute' => 'status',
+                'value' => function ($model){
+                    return \common\widgets\Status::widget(['status'=> $model->status]);
+                }
+            ],
             //'created_at',
             //'updated_at',
             //'last_post_at',

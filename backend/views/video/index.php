@@ -32,11 +32,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'did',
             'title',
-            'description:ntext',
+            'description:text',
             'slug',
             //'image',
             //'type',
-            //'status',
+            [
+                'attribute' => 'status',
+                'value' => function ($model){
+                    return \common\widgets\Status::widget(['status' => $model->status]);
+                }
+            ],
             //'permission',
             //'file_status',
             //'created_at',
