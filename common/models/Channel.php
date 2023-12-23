@@ -33,6 +33,8 @@ use yii\behaviors\TimestampBehavior;
  */
 class Channel extends \yii\db\ActiveRecord
 {
+    const TYPE_SYSTEM = 0;
+
     /**
      * {@inheritdoc}
      */

@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'type')->dropDownList([
-            Channel::TYPE_SYSTEM => 'public' , 'private'
+            \common\dictionaries\Status::STATUS_DEFAULT => 'public' , 'private'
     ]) ?>
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>

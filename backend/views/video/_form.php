@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 /** @var common\models\Video $model */
 /** @var yii\widgets\ActiveForm $form */
 
-$users = User::find()->where(['status' => User::STATUS_ACTIVE])->all();
+$users = User::find()->where(['status' => \common\dictionaries\Status::STATUS_ACTIVE])->all();
 $userArray = [];
 foreach ($users as $user) {
     $userArray[$user->id] = $user->username;
@@ -36,15 +36,13 @@ foreach ($channels as $channel) {
     <?= $form->field($model, 'image')->fileInput() ?>
 
     <?= $form->field($model, 'type')->dropDownList([
-        Channel::TYPE_SYSTEM => 'public', 'private'
+        \common\dictionaries\Status::STATUS_DEFAULT => 'public', 'private'
     ]) ?>
 
     <?= $form->field($model, 'tags')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'category')->dropDownList([
-        1 => 'science',
-        2 => 'horror',
-        3 => 'fiction',
+       \common\dictionaries\Status::STATUS_DEFAULT => 'science' , 'horror', 'fiction'
     ]) ?>
 
     <?= $form->field($model, 'location')->textInput(['maxlength' => true]) ?>
