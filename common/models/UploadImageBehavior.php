@@ -41,7 +41,7 @@ class UploadImageBehavior extends Behavior
     {
         foreach ($this->attributes as $attribute) {
 
-            if (UploadedFile::getInstance($this->owner, $attribute)) {
+            if ($file = UploadedFile::getInstance($this->owner, $attribute)) {
 
                 $date = date('Y/m/d');
                 $path = '@backend/web/img/' . $date;
