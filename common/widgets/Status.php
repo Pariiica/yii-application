@@ -10,9 +10,9 @@ class Status extends Widget
     public $status;
 
     public $icons = [
-        'active'=> '<img  src="https://img.icons8.com/emoji/32/check-mark-emoji.png" alt="active"/>',
+        'active'=> '<img src="https://img.icons8.com/emoji/32/check-mark-emoji.png" alt="active"/>',
         'inactive' => '<img src="https://img.icons8.com/color/32/delete-sign--v1.png" alt="inactive"/>',
-        'pending' => '<img  src="https://img.icons8.com/ios/32/228BE6/present.png" alt="pending"/>'
+        'pending' => '<img src="https://img.icons8.com/ios/32/228BE6/present.png" alt="pending"/>'
     ];
     public function run()
     {
