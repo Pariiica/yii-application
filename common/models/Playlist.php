@@ -47,7 +47,7 @@ class Playlist extends \yii\db\ActiveRecord
                 'class' => AttributeBehavior::class,
                 'attributes' => [self::EVENT_BEFORE_INSERT => 'type'],
                 'value' => function () {
-                    return $this->type ?: Status::STATUS_DEFAULT;
+                    return $this->type;
                 }
             ],
             [
@@ -58,7 +58,7 @@ class Playlist extends \yii\db\ActiveRecord
                 'class' => AttributeBehavior::class,
                 'attributes' => [self::EVENT_BEFORE_INSERT => 'status'],
                 'value' => function () {
-                    return $this->status ?: Status::STATUS_DEFAULT;
+                    return $this->isNewRecord ? Status::STATUS_ACTIVE : Status::STATUS_INACTIVE;
                 }
             ],
         ];

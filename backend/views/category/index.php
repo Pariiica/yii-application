@@ -38,7 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
                 'value' => function ($model){
                     return \common\widgets\Status::widget(['status'=> $model->status]);
-                }
+                },
+                'format' => 'html',
             ],
             //'sequence',
             'tags:text',

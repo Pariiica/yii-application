@@ -41,7 +41,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
                 'value' => function ($model) {
                     return Status::widget(['status' => $model->status]);
-                }
+                },
+                'format' => 'html'
             ],
             //'role',
             //'created_at',

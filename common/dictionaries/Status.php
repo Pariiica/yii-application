@@ -2,7 +2,13 @@
  namespace common\dictionaries;
 class Status
 {
-    const STATUS_DEFAULT = 10;
-    const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = 0;
+    const STATUS_PENDING = 10;
+
+    public static $statusLabels = [
+        self::STATUS_PENDING => 'Pending',
+        self::STATUS_ACTIVE => 'Active',
+        self::STATUS_INACTIVE => 'Inactive'
+    ];
 }

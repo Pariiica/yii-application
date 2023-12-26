@@ -36,13 +36,13 @@ foreach ($channels as $channel) {
     <?= $form->field($model, 'image')->fileInput() ?>
 
     <?= $form->field($model, 'type')->dropDownList([
-        \common\dictionaries\Status::STATUS_DEFAULT => 'public', 'private'
+        \common\dictionaries\Status::STATUS_ACTIVE => 'public', 'private'
     ]) ?>
 
     <?= $form->field($model, 'tags')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'category')->dropDownList([
-       \common\dictionaries\Status::STATUS_DEFAULT => 'science' , 'horror', 'fiction'
+       \common\dictionaries\Status::STATUS_ACTIVE => 'science' , 'horror', 'fiction'
     ]) ?>
 
     <?= $form->field($model, 'location')->textInput(['maxlength' => true]) ?>
