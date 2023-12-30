@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'status',
                 'value' => function ($model){
-                    return Status::widget(['status' => $model->status]) ;
+                     return Status::widget(['model' => $model])  . $model->statusName;
                 },
                 'format' => 'html'
             ],

@@ -73,6 +73,24 @@ class VideoController extends Controller
     }
 
     /**
+     * @throws NotFoundHttpException
+     */
+    public function actionChangeStatus($id, $status)
+    {
+        $model =$this->findModel($id);
+        $model->status = $status;
+        $result = $model->save();
+
+        if ($result) {
+            Yii::$app->session->setFlash('success', 'is ok');
+        } else {
+            Yii::$app->session->setFlash('error', 'failed');
+        }
+
+        return $this->redirect($this->request->referrer);
+    }
+
+    /**
      * Creates a new Video model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
