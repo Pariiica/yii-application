@@ -17,11 +17,11 @@ class Status extends Widget
     public function run()
     {
         if ($this->status === \common\dictionaries\Status::STATUS_ACTIVE) {
-            return $this->icons['active'];
+            return Html::a($this->icons['active'],'');
         } elseif ($this->status === \common\dictionaries\Status::STATUS_INACTIVE) {
-            return $this->icons['inactive'];
+            return Html::a($this->icons['active'],'');
         } else {
-            return $this->icons['pending'];
+            return Html::a($this->icons['pending'],'');
         }
     }
 }
