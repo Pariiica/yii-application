@@ -19,7 +19,7 @@ class Status extends Widget
         if ($this->status === \common\dictionaries\Status::STATUS_ACTIVE) {
             return Html::a($this->icons['active'],'');
         } elseif ($this->status === \common\dictionaries\Status::STATUS_INACTIVE) {
-            return Html::a($this->icons['active'],'');
+            return Html::a($this->icons['inactive'],'');
         } else {
             return Html::a($this->icons['pending'],'');
         }
