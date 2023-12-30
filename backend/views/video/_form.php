@@ -42,7 +42,9 @@ foreach ($channels as $channel) {
     <?= $form->field($model, 'tags')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'category')->dropDownList([
-       \common\dictionaries\Status::STATUS_ACTIVE => 'science' , 'horror', 'fiction'
+            0 => 'science',
+            1 => 'horror',
+            2 => 'fiction',
     ]) ?>
 
     <?= $form->field($model, 'location')->textInput(['maxlength' => true]) ?>

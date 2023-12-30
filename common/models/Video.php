@@ -28,6 +28,7 @@ use yii\db\ActiveRecord;
  * @property int|null $published_at
  * @property int|null $via
  * @property string|null $tags
+ * @property String|null $category
  * @property int|null $length
  * @property string|null $location
  * @property string|null $manifest
@@ -40,7 +41,6 @@ use yii\db\ActiveRecord;
  */
 class Video extends ActiveRecord
 {
-    public $category;
 
     /**
      * {@inheritdoc}
@@ -97,7 +97,7 @@ class Video extends ActiveRecord
             [['description'], 'string'],
             [['type', 'status', 'permission', 'file_status', 'created_at', 'updated_at', 'published_at', 'via', 'length', 'config', 'channel_id', 'user_id'], 'integer'],
             [['did'], 'string', 'max' => 8],
-            [['title', 'manifest'], 'string', 'max' => 500],
+            [['title', 'manifest', 'category'], 'string', 'max' => 500],
             [['slug', 'address'], 'string', 'max' => 250],
             [['tags', 'file_service_id'], 'string', 'max' => 1000],
             [['image'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
@@ -127,6 +127,7 @@ class Video extends ActiveRecord
             'published_at' => Yii::t('app', 'Published At'),
             'via' => Yii::t('app', 'Via'),
             'tags' => Yii::t('app', 'Tags'),
+            'category' => Yii::t('app', 'category'),
             'length' => Yii::t('app', 'Length'),
             'location' => Yii::t('app', 'Location'),
             'manifest' => Yii::t('app', 'Manifest'),

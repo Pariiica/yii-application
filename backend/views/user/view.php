@@ -38,8 +38,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'type',
             'status',
             'role',
-            'created_at',
-            'updated_at',
+            [
+                    'attribute' => 'created_at',
+                    'value' => date('Y-m-d H:i')
+            ],
+            [
+                    'attribute' => 'updated_at',
+                    'value' => date('Y-m-d H:i')
+            ],
             'email:email',
             'mobile',
             'first_name',

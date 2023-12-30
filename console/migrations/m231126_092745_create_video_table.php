@@ -28,6 +28,7 @@ class m231126_092745_create_video_table extends Migration
             'published_at' => $this->integer(),
             'via' => $this->smallInteger(),
             'tags' => $this->string(1000),
+            'category' => $this->string(500),
             'length' => $this->integer(),
             'location' => $this->string(60),
             'manifest' => $this->string(500),
