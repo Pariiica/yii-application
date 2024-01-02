@@ -21,7 +21,7 @@ class m231126_083430_create_channel_table extends Migration
             'image' => $this->string(250),
             'cover' => $this->string(250),
             'type' => $this->smallInteger(),
-            'status' => $this->smallInteger()->defaultValue(10),
+            'status' => $this->smallInteger(),
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),
             'last_post_at' => $this->integer(),

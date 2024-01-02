@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Category;
+use common\widgets\Status;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -37,9 +38,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'status',
                 'value' => function ($model){
-                    return \common\widgets\Status::widget(['status'=> $model->status]);
+                    return Status::widget(['model' => $model])  . $model->statusName;
                 },
-                'format' => 'html',
+                'format' => 'html'
             ],
             //'sequence',
             'tags:text',

@@ -45,8 +45,4 @@ class ChangeStatusAction extends \yii\base\Action
 
         return $this->controller->redirect($this->controller->request->referrer);
     }
-
-    private function findOne(array $array)
-    {
-    }
 }

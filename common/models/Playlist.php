@@ -112,4 +112,10 @@ class Playlist extends \yii\db\ActiveRecord
     {
         return new PlaylistQuery(get_called_class());
     }
+
+    public function getStatusName()
+    {
+        $data = Status::$statusLabels;
+        return isset($data[$this->status]) ? $data[$this->status] : 'unknown';
+    }
 }

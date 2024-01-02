@@ -18,11 +18,11 @@ class Status extends Widget
     public function run()
     {
         if ($this->model->status === \common\dictionaries\Status::STATUS_ACTIVE) {
-            return Html::a($this->icons['active'],['/video/change-status', 'id' => $this->model->id, 'status' => \common\dictionaries\Status::STATUS_INACTIVE]);
+            return Html::a($this->icons['active'],['change-status', 'id' => $this->model->id, 'status' => \common\dictionaries\Status::STATUS_INACTIVE]);
         } elseif ($this->model->status === \common\dictionaries\Status::STATUS_INACTIVE) {
-            return Html::a($this->icons['inactive'],['/video/change-status', 'id' => $this->model->id, 'status' => \common\dictionaries\Status::STATUS_ACTIVE]);
+            return Html::a($this->icons['inactive'],['change-status', 'id' => $this->model->id, 'status' => \common\dictionaries\Status::STATUS_ACTIVE]);
         } else {
-            return Html::a($this->icons['active'],['/video/change-status', 'id' => $this->model->id, 'status' => \common\dictionaries\Status::STATUS_INACTIVE]) . Html::a($this->icons['inactive'],['/video/change-status', 'id' => $this->model->id, 'status' => \common\dictionaries\Status::STATUS_ACTIVE]);
+            return Html::a($this->icons['active'],['change-status', 'id' => $this->model->id, 'status' => \common\dictionaries\Status::STATUS_INACTIVE]) . Html::a($this->icons['inactive'],['change-status', 'id' => $this->model->id, 'status' => \common\dictionaries\Status::STATUS_ACTIVE]);
         }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\actions\ChangeStatusAction;
 use Yii;
 use common\models\Video;
 use common\models\VideoSearch;
@@ -43,6 +44,17 @@ class VideoController extends Controller
         );
     }
 
+
+    public function actions()
+    {
+        return [
+            'change-status' => [
+                'class' => ChangeStatusAction::class,
+                'findModel' => [$this, 'findModel']
+            ]
+        ];
+    }
+
     /**
      * Lists all Video models.
      *
@@ -70,24 +82,6 @@ class VideoController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
-    }
-
-    /**
-     * @throws NotFoundHttpException
-     */
-    public function actionChangeStatus($id, $status)
-    {
-        $model =$this->findModel($id);
-        $model->status = $status;
-        $result = $model->save();
-
-        if ($result) {
-            Yii::$app->session->setFlash('success', 'is ok');
-        } else {
-            Yii::$app->session->setFlash('error', 'failed');
-        }
-
-        return $this->redirect($this->request->referrer);
     }
 
     /**
@@ -153,7 +147,7 @@ class VideoController extends Controller
      * @return Video the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    public function findModel($id)
     {
         if (($model = Video::findOne(['id' => $id])) !== null) {
             return $model;

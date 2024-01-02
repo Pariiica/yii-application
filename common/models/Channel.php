@@ -139,4 +139,9 @@ class Channel extends \yii\db\ActiveRecord
     {
         return new ChannelQuery(get_called_class());
     }
+    public function getStatusName()
+    {
+        $data = Status::$statusLabels;
+        return isset($data[$this->status]) ? $data[$this->status] : 'unknown';
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\actions\ChangeStatusAction;
 use Yii;
 use common\models\User;
 use common\models\UserSearch;
@@ -31,6 +32,16 @@ class UserController extends Controller
             ]
 
         );
+    }
+
+    public function actions()
+    {
+        return [
+            'change-status' => [
+                'class' => ChangeStatusAction::class,
+                'findModel' => [$this, 'findModel']
+            ]
+        ];
     }
 
     /**
@@ -125,7 +136,7 @@ class UserController extends Controller
      * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    public function findModel($id)
     {
         if (($model = User::findOne(['id' => $id])) !== null) {
             return $model;

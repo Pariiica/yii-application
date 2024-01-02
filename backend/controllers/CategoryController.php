@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\actions\ChangeStatusAction;
 use Yii;
 use common\models\Category;
 use common\models\CategorySearch;
@@ -42,6 +43,16 @@ class CategoryController extends Controller
                 ],
             ]
         );
+    }
+
+    public function actions()
+    {
+        return [
+            'change-status' => [
+                'class' => ChangeStatusAction::class,
+                'findModel' => [$this, 'findModel']
+            ]
+        ];
     }
 
     /**
@@ -136,7 +147,7 @@ class CategoryController extends Controller
      * @return Category the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    public function findModel($id)
     {
         if (($model = Category::findOne(['id' => $id])) !== null) {
             return $model;

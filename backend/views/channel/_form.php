@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 /** @var yii\bootstrap5\ActiveForm $form */
 
 
-$users = User::find()->where(['status' => \common\widgets\Status::widget(['status'=> $model->status])])->all();
+$users = User::find()->where(['status' => \common\dictionaries\Status::STATUS_ACTIVE])->all();
 $userArray = [];
 foreach ($users as $user) {
     $userArray[$user->id] = $user->username;

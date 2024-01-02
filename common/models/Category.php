@@ -113,4 +113,9 @@ class Category extends \yii\db\ActiveRecord
     {
         return new CategoryQuery(get_called_class());
     }
+    public function getStatusName()
+    {
+        $data = Status::$statusLabels;
+        return isset($data[$this->status]) ? $data[$this->status] : 'unknown';
+    }
 }

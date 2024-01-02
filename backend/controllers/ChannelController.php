@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\actions\ChangeStatusAction;
 use Yii;
 use common\models\Channel;
 use common\models\ChannelSearch;
@@ -43,6 +44,15 @@ class ChannelController extends Controller
                 ],
             ]
         );
+    }
+    public function actions()
+    {
+        return [
+            'change-status' => [
+                'class' => ChangeStatusAction::class,
+                'findModel' => [$this, 'findModel']
+            ]
+        ];
     }
 
     /**
@@ -137,7 +147,7 @@ class ChannelController extends Controller
      * @return Channel the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    public function findModel($id)
     {
         if (($model = Channel::findOne(['id' => $id])) !== null) {
             return $model;
