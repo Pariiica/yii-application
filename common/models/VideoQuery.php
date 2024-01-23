@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use common\dictionaries\Status;
+
 /**
  * This is the ActiveQuery class for [[Video]].
  *
@@ -9,10 +11,10 @@ namespace common\models;
  */
 class VideoQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
+    public function active()
     {
-        return $this->andWhere('[[status]]=1');
-    }*/
+        return $this->andWhere(['status' => Status::STATUS_ACTIVE]);
+    }
 
     /**
      * {@inheritdoc}

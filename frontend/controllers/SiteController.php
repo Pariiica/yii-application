@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Video;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -74,9 +75,16 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($category = null)
     {
-        return $this->render('index');
+        $query = Video::find()->limit(20)->active();
+
+        if ($category) {
+            $query->andWhere(['category' => $category]);
+        }
+
+        $models = $query->all();
+        return $this->render('index', ['models' => $models]);
     }
 
     /**
