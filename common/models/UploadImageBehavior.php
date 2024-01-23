@@ -71,8 +71,9 @@ class UploadImageBehavior extends Behavior
             mkdir($folderPath,0777,true);
         }
 
-        $path = Yii::getAlias('@backend/web/img/') . $date. '/'. time() . '.' . $this->owner->$attribute->extension;
-        $pathName = $date. '/' . $attribute  .  '.' . $this->owner->$attribute->extension;
+        $time = time();
+        $path = Yii::getAlias('@backend/web/img/') . $date. '/'. $time . '.' . $this->owner->$attribute->extension;
+        $pathName = $date. '/' . $time  .  '.' . $this->owner->$attribute->extension;
         $this->owner->$attribute->saveAs($path);
         $this->owner->$attribute = $pathName;
 

@@ -1,7 +1,9 @@
 <?php
 
+use common\models\Category;
 use common\models\Channel;
 use common\models\User;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -22,6 +24,9 @@ foreach ($channels as $channel) {
     $channelArray[$channel->id] = $channel->username;
 }
 
+
+$cat = Category::find()->all();
+$catArray = ArrayHelper::map($cat,'id', 'name')
 ?>
 
 <div class="video-form">
@@ -41,11 +46,7 @@ foreach ($channels as $channel) {
 
     <?= $form->field($model, 'tags')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'category')->dropDownList([
-            0 => 'science',
-            1 => 'horror',
-            2 => 'fiction',
-    ]) ?>
+    <?= $form->field($model, 'category')->dropDownList($catArray) ?>
 
     <?= $form->field($model, 'location')->textInput(['maxlength' => true]) ?>
 
