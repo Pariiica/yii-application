@@ -44,7 +44,7 @@ AppAsset::register($this);
     $catArray = ArrayHelper::map($cat,'id', 'name');
 
     foreach ($catArray as $categoryId => $categoryName) {
-        $menuItems[] = ['label' => $categoryName, 'url' => ['video/action', 'category' => $categoryId]];
+        $menuItems[] = ['label' => $categoryName, 'url' => ['site/index', 'category' => $categoryId]];
     }
 
     if (Yii::$app->user->isGuest) {
