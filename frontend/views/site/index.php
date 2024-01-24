@@ -5,6 +5,7 @@
 
 use yii\helpers\Html;
 use frontend\controllers;
+use yii\widgets\LinkPager;
 
 $this->title = 'My Yii Application';
 ?>
@@ -29,4 +30,7 @@ $this->title = 'My Yii Application';
             <?php endforeach; ?>
         </div>
     </div>
-</div> <hr>
+</div>
+<?php echo LinkPager::widget(['pagination'=>$pagination]) ?>
+<hr>
+

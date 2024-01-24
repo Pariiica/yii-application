@@ -7,7 +7,7 @@ use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
-use yii\base\Model;
+use yii\data\Pagination;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -77,14 +77,18 @@ class SiteController extends Controller
      */
     public function actionIndex($category = null)
     {
-        $query = Video::find()->limit(20)->active();
-
+        $query = Video::find()->active();
         if ($category) {
             $query->andWhere(['category' => $category]);
         }
-
-        $models = $query->all();
-        return $this->render('index', ['models' => $models]);
+        $count = $query->count();
+        $pagination = new Pagination(['totalCount'=>$count, 'defaultPageSize' => 4]);
+        $models = $query->offset($pagination->offset)
+            ->limit(4)
+            ->all();
+        return $this->render('index', [
+            'models' => $models,
+            'pagination' => $pagination]);
     }
 
     /**
