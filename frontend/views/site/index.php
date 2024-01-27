@@ -4,7 +4,6 @@
 /** @var \common\models\Video[] $models */
 
 use yii\helpers\Html;
-use frontend\controllers;
 use yii\widgets\LinkPager;
 
 $this->title = 'My Yii Application';
@@ -20,7 +19,9 @@ $this->title = 'My Yii Application';
                             <p class="card-text"><?= $model->title ?></p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Watch</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">
+                                        <?= Html::a('view', ['video/view', 'id' => $model->id])?>
+                                    </button>
                                 </div>
                                 <small class="text-muted"><?= $model->length ?></small>
                             </div>
@@ -33,4 +34,5 @@ $this->title = 'My Yii Application';
 </div>
 <?php echo LinkPager::widget(['pagination'=>$pagination]) ?>
 <hr>
+
 
