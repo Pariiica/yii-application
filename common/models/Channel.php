@@ -7,6 +7,7 @@ use Hashids\Hashids;
 use Yii;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "{{%channel}}".
@@ -30,6 +31,7 @@ use yii\behaviors\TimestampBehavior;
  * @property int|null $user_id
  * @property int|null $pinned_video_id
  * @property int|null $paid
+ * @property Video[] $videos
  */
 class Channel extends \yii\db\ActiveRecord
 {
@@ -129,6 +131,14 @@ class Channel extends \yii\db\ActiveRecord
 
         $this->did = $did;
         $this->save();
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getVideos()
+    {
+        return $this->hasMany(Video::class, ['channel_id' => 'id']);
     }
 
     /**
