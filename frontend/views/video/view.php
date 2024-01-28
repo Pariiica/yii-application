@@ -6,6 +6,7 @@
 
 use common\models\Video;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->title = 'My Yii Application';
 ?>
@@ -32,8 +33,15 @@ $this->title = 'My Yii Application';
     <div class="row">
         <div class="video-container">
             <?= Html::img(['file/image', 'path' => $model->image], ['style'=> 'width: 90%; height: 60%;']) ?>
-            <h2 style="margin: 1rem 0"><?= $model->title ?></h2>
-            <p style="margin: 1rem 0"><?= $model->description ?></p>
+            <div class="d-flex align-items-center">
+                <a href="<?= Url::to(['channel/view', 'id' => $model->channel_id]) ?>">
+                    <?= Html::img(['file/image', 'path' => $model->image], ['style'=> 'width: 5rem; height: 5rem; border-radius: 50%']) ?>
+                </a>
+                <div class="m-3">
+                    <h2 style="margin: 1rem 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $model->title ?></h2>
+                    <p style="margin: 1rem 0;"><?= $model->description ?></p>
+                </div>
+            </div>
         </div>
         <div class="related-videos">
             <h3>Related Videos</h3>
