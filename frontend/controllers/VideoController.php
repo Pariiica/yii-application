@@ -25,8 +25,8 @@ class VideoController extends Controller
     }
     public function findModel($id)
     {
-        if (($video = Video::findOne(['id' => $id])) !== null) {
-            return $video;
+        if (($model = Video::findOne(['id' => $id])) !== null) {
+            return $model;
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
