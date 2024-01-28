@@ -15,18 +15,18 @@ class VideoController extends Controller
     }
     public function actionView($id)
     {
-        $model = $this->findModel($id);
-        $models = Video::find()->where(['category' => $model->category])->andWhere(['not', ['id' => $model->id]])->limit(5)->all();
+        $video = $this->findModel($id);
+        $videos = Video::find()->where(['category' => $video->category])->andWhere(['not', ['id' => $video->id]])->limit(5)->all();
         return $this->render('view', [
-            'models' => $models,
-            'model' => $model
+            'videos' => $videos,
+            'video' => $video,
         ]);
 
     }
     public function findModel($id)
     {
-        if (($model = Video::findOne(['id' => $id])) !== null) {
-            return $model;
+        if (($video = Video::findOne(['id' => $id])) !== null) {
+            return $video;
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));

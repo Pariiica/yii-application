@@ -1,8 +1,8 @@
 <?php
 
 /** @var yii\web\View $this */
-/** @var Video[] $models */
-/** @var Video $model */
+/** @var Video[] $videos */
+/** @var Video $video */
 
 use common\models\Video;
 use yii\helpers\Html;
@@ -32,25 +32,25 @@ $this->title = 'My Yii Application';
 <div class="container">
     <div class="row">
         <div class="video-container">
-            <?= Html::img(['file/image', 'path' => $model->image], ['style'=> 'width: 90%; height: 60%;']) ?>
+            <?= Html::img(['file/image', 'path' => $video->image], ['style'=> 'width: 90%; height: 60%;']) ?>
             <div class="d-flex align-items-center">
-                <a href="<?= Url::to(['channel/view', 'id' => $model->channel_id]) ?>">
-                    <?= Html::img(['file/image', 'path' => $model->image], ['style'=> 'width: 5rem; height: 5rem; border-radius: 50%']) ?>
+                <a href="<?= Url::to(['channel/view', 'id' => $video->channel_id]) ?>">
+                    <?= Html::img(['file/image', 'path' => $video->image], ['style'=> 'width: 5rem; height: 5rem; border-radius: 50%']) ?>
                 </a>
                 <div class="m-3">
-                    <h2 style="margin: 1rem 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $model->title ?></h2>
-                    <p style="margin: 1rem 0;"><?= $model->description ?></p>
+                    <h2 style="margin: 1rem 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $video->title ?></h2>
+                    <p style="margin: 1rem 0;"><?= $video->description ?></p>
                 </div>
             </div>
         </div>
         <div class="related-videos">
             <h3>Related Videos</h3>
-            <?php foreach ($models as $model) : ?>
+            <?php foreach ($videos as $video) : ?>
                 <div class="card" style="margin-bottom: 1rem">
-                    <?= Html::img(['file/image', 'path' => $model->image], ['style'=> 'width: 100%; height: 90%;']) ?>
+                    <?= Html::img(['file/image', 'path' => $video->image], ['style'=> 'width: 100%; height: 90%;']) ?>
                     <div class="card-body">
-                        <h5><?= $model->title ?></h5>
-                        <p><?= $model->description ?></p>
+                        <h5><?= $video->title ?></h5>
+                        <p><?= $video->description ?></p>
                     </div>
                 </div>
             <?php endforeach; ?>
