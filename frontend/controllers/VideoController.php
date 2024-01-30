@@ -19,8 +19,7 @@ class VideoController extends Controller
     {
         $video = $this->findModel($id);
         $videos = Video::find()->where(['category' => $video->category])->andWhere(['not', ['id' => $video->id]])->limit(5)->all();
-        $comment = new Comment();
-        $comments = Comment::find()->where(['video_id' => $comment->video_id])->limit(3)->all();
+        $comments = \common\models\Comment::find()->where(['video_id' => $video->id])->limit(3)->all();
 
         return $this->render('view', [
             'videos' => $videos,

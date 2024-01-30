@@ -1,5 +1,8 @@
 <?php
 
+/** @var \common\models\Video $video */
+/** @var \common\models\Comment $comments */
+
 use yii\helpers\Html; ?>
 
 <div class="comment-section">

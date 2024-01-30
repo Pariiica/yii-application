@@ -35,6 +35,6 @@ class CommentController extends Controller
         } else {
             echo 'There was an error saving the comment';
         }
-        return $this->redirect(['/video/view', 'id' => $comment->video_id, 'channel_id' => $comment->channel_id]);
+        return $this->redirect(['/video/view', 'id' => $comment->video_id, 'channel_id' => $comment->channel_id, 'comment_id' =>$comment->parent_id]);
     }
 }

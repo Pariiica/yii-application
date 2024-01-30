@@ -35,7 +35,7 @@ $this->title = 'My Yii Application';
 <div class="container">
     <div class="row">
         <div class="video-container">
-            <?= Html::img(['file/image', 'path' => $video->image], ['style'=> 'width: 90%; height: 60%;']) ?>
+            <?= Html::img(['file/image', 'path' => $video->image], ['style'=> 'width: 90%; height: 45%;']) ?>
             <div class="d-flex align-items-center">
                 <a href="<?= Url::to(['channel/view', 'id' => $video->channel_id]) ?>">
                     <?= Html::img(['file/image', 'path' => $video->image], ['style'=> 'width: 5rem; height: 5rem; border-radius: 50%']) ?>

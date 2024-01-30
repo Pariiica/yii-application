@@ -9,6 +9,7 @@ class Comment extends Widget
 {
     public $video;
     public $channel;
+    public $comment;
     public $comments;
 
     public function run()
@@ -19,8 +20,9 @@ class Comment extends Widget
 
         return $this->render('comment', [
             'video' => $this->video,
-            'channel' => $this->channel,
+            'comment' => $this->comment,
             'comments' => $this->comments,
+
         ]);
     }
 }
