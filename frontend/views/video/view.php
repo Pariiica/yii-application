@@ -3,7 +3,9 @@
 /** @var yii\web\View $this */
 /** @var Video[] $videos */
 /** @var Video $video */
+/** @var Comment $comment */
 
+use common\models\Comment;
 use common\models\Video;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -40,6 +42,28 @@ $this->title = 'My Yii Application';
                 <div class="m-3">
                     <h2 style="margin: 1rem 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $video->title ?></h2>
                     <p style="margin: 1rem 0;"><?= $video->description ?></p>
+                </div>
+            </div>
+            <div class="comment-section">
+                <h3>Comments</h3>
+                    <div class="comment">
+                        <div class="commenter-info">
+                            <?= Html::img(['file/image', 'path' => $video->image], ['style'=> 'width: 2rem; height: 2rem; border-radius: 50%']) ?>
+                            <span class="commenter-name">User</span>
+                        </div>
+                        <p class="comment-text">This is the first comment.</p>
+                    </div>
+                <div class="add-comment">
+
+                    <h4>Add a comment</h4>
+                    <?= Html::beginForm(['comment/create']) ?>
+                    <div class="form-group">
+                        <label for="comment-text">Comment</label>
+                        <textarea id="comment-text" name="Comment[text]" class="form-control" rows="3"></textarea>
+                        <input type="hidden" name="Comment[video_id]" value="<?= $video->id ?>">
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                    <?= Html::endForm() ?>
                 </div>
             </div>
         </div>
