@@ -50,6 +50,11 @@ class Comment extends \yii\db\ActiveRecord
                 'value' => function () {
                     return Yii::$app->user->id;
                 },
+            ],
+            [
+                'class' => AttributeBehavior::class,
+                'attributes' => [self::EVENT_BEFORE_INSERT => 'created_at'],
+                'value' => date('Y-m-d')
             ]
         ];
 
