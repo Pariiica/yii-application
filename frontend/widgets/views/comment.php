@@ -5,6 +5,16 @@
 
 use yii\helpers\Html; ?>
 
+<style>
+    .reply-btn{
+        background: transparent;
+        border: none;
+        text-decoration: none;
+        font-size: smaller;
+        color: #8e8a80;
+    }
+</style>
+
 <div class="comment-section">
     <div class="add-comment">
         <h4>Add a comment</h4>
@@ -14,6 +24,7 @@ use yii\helpers\Html; ?>
             <textarea id="comment-text" name="Comment[text]" class="form-control" rows="3"></textarea>
             <input type="hidden" name="Comment[video_id]" value="<?= $video->id ?>">
             <input type="hidden" name="Comment[channel_id]" value="<?= $video->channel_id ?>">
+            <input type="hidden" name="Comment[parent_id]" value="<?= Yii::$app->request->get('parent_id') ?>">
         </div>
         <button type="submit" class="btn btn-primary mt-2">Submit</button>
         <?= Html::endForm() ?>
@@ -24,6 +35,9 @@ use yii\helpers\Html; ?>
                     <?= Html::img(['file/image', 'path' => $video->image], ['style'=> 'width: 2rem; height: 2rem; border-radius: 50%']) ?>
                     <span class="commenter-name">User</span>
                 </div>
+                <button class="reply-btn">
+                    <?= Html::a('Reply', ['video/view' , 'id' => $video->id, 'parent_id'=> $comment->id])?>
+                </button>
                 <p class="comment-text"><?= $comment->text ?></p>
             </div>
         <?php endforeach; ?>
