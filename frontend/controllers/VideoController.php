@@ -19,12 +19,14 @@ class VideoController extends Controller
     {
         $video = $this->findModel($id);
         $videos = Video::find()->where(['category' => $video->category])->andWhere(['not', ['id' => $video->id]])->limit(5)->all();
-        $comments = \common\models\Comment::find()->where(['video_id' => $video->id])->limit(3)->all();
+        $comments = Comment::find()->where(['video_id' => $video->id])->andWhere(['parent_id' => null])->orderBy(['id' => SORT_DESC])->limit(3)->all(); //write this with relations
+        $replies = [];
 
         return $this->render('view', [
             'videos' => $videos,
             'video' => $video,
             'comments' => $comments,
+            'replies' => $replies,
         ]);
 
     }

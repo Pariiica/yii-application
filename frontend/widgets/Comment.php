@@ -8,7 +8,6 @@ use yii\base\Widget;
 class Comment extends Widget
 {
     public $video;
-    public $channel;
     public $comment;
     public $comments;
 
