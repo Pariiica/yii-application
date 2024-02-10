@@ -1,7 +1,6 @@
 <?php
 
 namespace api\models;
-use yii\behaviors\TimestampBehavior;
 
 class User extends \common\models\User
 {
