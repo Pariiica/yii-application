@@ -2,8 +2,6 @@
 
 namespace api\controllers;
 
-
-use common\models\UserSearch;
 use yii\rest\ActiveController;
 
 class UserController extends ActiveController
@@ -20,7 +18,7 @@ class UserController extends ActiveController
 
     public function prepareDataProvider()
     {
-        $searchModel = new UserSearch();
+        $searchModel = new \api\models\UserSearch();
         return $searchModel->search(\Yii::$app->request->queryParams);
     }
 }
