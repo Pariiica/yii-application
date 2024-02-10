@@ -19,7 +19,7 @@ return [
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
             ],
-            'cookieValidationKey' => 'l1KepQGYHp9azjsjN1rGAzDV_6nmkbYv' . $params['domain'],
+            'cookieValidationKey' => 'l1KepQGYHp9azjsjN1rGAzDV_6nmkbYv',
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -27,8 +27,8 @@ return [
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
         ],
         'session' => [
-            // this is the name of the session cookie used for login on the backend
-            'name' => 'advanced-backend',
+//             this is the name of the session cookie used for login on the backend
+            'name' => 'advanced-api',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -47,10 +47,24 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'user/view' => 'user/view'
+                'user/<id:\w+>' => 'user/view',
             ]
         ],
-
+        [
+            'class' => 'yii\rest\UrlRule',
+            'controller' => ['user'],
+            'prefix' => 'v1',
+            'tokens' => [
+                '{did}' => '<id:[\\w\\W]+>'
+            ],
+            'extraPatterns' => [
+                'PUT,PATCH {did}' => 'update',
+                'DELETE {did}' => 'delete',
+                'DELETE' => 'delete',
+                'GET,HEAD {did}' => 'view',
+                '{did}' => 'options',
+            ],
+        ],
     ],
     'params' => $params,
 ];
