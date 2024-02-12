@@ -2,11 +2,16 @@
 
 namespace api\controllers;
 
+use api\models\UserSearch;
 use yii\rest\ActiveController;
 
 class UserController extends ActiveController
 {
-    public $modelClass = 'common\models\User';
+    public $serializer = [
+        'class' => 'yii\rest\Serializer',
+        'collectionEnvelope' => 'items',
+    ];
+    public $modelClass = 'api\models\User';
 
     public function actions()
     {
@@ -18,7 +23,8 @@ class UserController extends ActiveController
 
     public function prepareDataProvider()
     {
-        $searchModel = new \api\models\UserSearch();
+        $searchModel = new UserSearch();
         return $searchModel->search(\Yii::$app->request->queryParams);
+
     }
 }

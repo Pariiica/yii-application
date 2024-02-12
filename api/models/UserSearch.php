@@ -2,7 +2,6 @@
 
 namespace api\models;
 
-use common\models\User;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -45,7 +44,7 @@ class UserSearch extends User
             'query' => $query,
         ]);
 
-        $this->load($params);
+        $this->load($params, '');
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
