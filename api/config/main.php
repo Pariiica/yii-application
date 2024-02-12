@@ -48,11 +48,12 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'user/<id:\w+>' => 'user/view',
+                'video/<id:\w+>' => 'video/view',
             ]
         ],
         [
             'class' => 'yii\rest\UrlRule',
-            'controller' => ['user'],
+            'controller' => ['user','video'],
             'prefix' => 'v1',
             'tokens' => [
                 '{did}' => '<id:[\\w\\W]+>'
