@@ -11,6 +11,7 @@ class UserController extends ActiveController
         'class' => 'yii\rest\Serializer',
         'collectionEnvelope' => 'items',
     ];
+
     public $modelClass = 'api\models\User';
 
     public function actions()

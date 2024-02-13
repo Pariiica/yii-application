@@ -2,6 +2,7 @@
 
 namespace api\models;
 
+use common\dictionaries\Status;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -13,9 +14,7 @@ class VideoSearch extends Video
     public function rules()
     {
         return [
-            [['id', 'type', 'status', 'permission', 'file_status', 'created_at', 'updated_at', 'published_at', 'via', 'length', 'config', 'channel_id', 'user_id'], 'integer'],
-            [['did', 'title', 'description', 'slug', 'image', 'tags', 'location', 'manifest', 'address', 'source', 'file_service_id'], 'safe'],
-        ];
+            [['category', 'status', 'title'], 'integer'],];
     }
 
     /**
@@ -47,39 +46,25 @@ class VideoSearch extends Video
         $this->load($params, '');
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+//             uncomment the following line if you do not want to return any records when validation fails
+//             $query->where('0=1');
             return $dataProvider;
         }
 
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'type' => $this->type,
-            'status' => $this->status,
-            'permission' => $this->permission,
-            'file_status' => $this->file_status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'published_at' => $this->published_at,
-            'via' => $this->via,
-            'length' => $this->length,
-            'config' => $this->config,
-            'channel_id' => $this->channel_id,
-            'user_id' => $this->user_id,
-        ]);
+        if ($this->category) {
+            $query->andWhere(['category' => $this->category]);
+        }
 
-        $query->andFilterWhere(['like', 'did', $this->did])
-            ->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'slug', $this->slug])
-            ->andFilterWhere(['like', 'image', $this->image])
-            ->andFilterWhere(['like', 'tags', $this->tags])
-            ->andFilterWhere(['like', 'location', $this->location])
-            ->andFilterWhere(['like', 'manifest', $this->manifest])
-            ->andFilterWhere(['like', 'address', $this->address])
-            ->andFilterWhere(['like', 'source', $this->source])
-            ->andFilterWhere(['like', 'file_service_id', $this->file_service_id]);
+        if ($this->status = Status::STATUS_ACTIVE) {
+            $query->andWhere(['status' => $this->status]);
+        }
+
+        if ($this->title) {
+            $query->andWhere(['title' => $this->title]);
+        }
+        if ($this->type) {
+            $query->andWhere(['type' => $this->type]);
+        }
 
         return $dataProvider;
     }

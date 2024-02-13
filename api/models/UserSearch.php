@@ -2,6 +2,7 @@
 
 namespace api\models;
 
+use common\dictionaries\Status;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -13,8 +14,7 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['id', 'type', 'status', 'role', 'created_at', 'updated_at', 'gender', 'verified', 'current_channel_id'], 'integer'],
-            [['gid', 'username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'mobile', 'first_name', 'last_name', 'text', 'birthday', 'image', 'cover', 'config', 'verification_token'], 'safe'],
+            [['status'], 'integer'],
         ];
     }
 
@@ -52,34 +52,9 @@ class UserSearch extends User
             return $dataProvider;
         }
 
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'type' => $this->type,
-            'status' => $this->status,
-            'role' => $this->role,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'gender' => $this->gender,
-            'verified' => $this->verified,
-            'birthday' => $this->birthday,
-            'current_channel_id' => $this->current_channel_id,
-        ]);
-
-        $query->andFilterWhere(['like', 'gid', $this->gid])
-            ->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'auth_key', $this->auth_key])
-            ->andFilterWhere(['like', 'password_hash', $this->password_hash])
-            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'mobile', $this->mobile])
-            ->andFilterWhere(['like', 'first_name', $this->first_name])
-            ->andFilterWhere(['like', 'last_name', $this->last_name])
-            ->andFilterWhere(['like', 'text', $this->text])
-            ->andFilterWhere(['like', 'image', $this->image])
-            ->andFilterWhere(['like', 'cover', $this->cover])
-            ->andFilterWhere(['like', 'config', $this->config])
-            ->andFilterWhere(['like', 'verification_token', $this->verification_token]);
+        if ($this->status = Status::STATUS_ACTIVE) {
+            $query->andWhere(['status' => $this->status]);
+        }
 
         return $dataProvider;
     }

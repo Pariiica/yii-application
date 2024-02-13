@@ -4,7 +4,6 @@ namespace api\controllers;
 
 use api\models\VideoSearch;
 use yii\rest\ActiveController;
-use yii\rest\Serializer;
 
 class VideoController extends ActiveController
 {
