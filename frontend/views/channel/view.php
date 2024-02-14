@@ -9,6 +9,7 @@ use yii\helpers\Html;
 
 ?>
 <h1><?= $channel->title ?></h1>
+<?= Html::a('playlists', ['playlist/view', 'id' => $channel->id])?>
 <div class="album pt-5 mx-5">
     <div class="container">
         <div class="row">

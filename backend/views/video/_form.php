@@ -21,7 +21,7 @@ $channels = Channel::find()->all();
 $channelArray = [];
 
 foreach ($channels as $channel) {
-    $channelArray[$channel->id] = $channel->username;
+    $channelArray[$channel->id] = $channel->title;
 }
 
 

@@ -61,6 +61,10 @@ class Playlist extends \yii\db\ActiveRecord
                     return $this->isNewRecord ? Status::STATUS_ACTIVE : Status::STATUS_INACTIVE;
                 }
             ],
+            [
+                'class' => UploadImageBehavior::class,
+                'attributes' => ['image'],
+            ],
         ];
     }
 
