@@ -20,7 +20,7 @@ $this->title = 'My Yii Application';
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-sm btn-outline-secondary">
-                                        <?= Html::a('view', ['video/view', 'id' => $playlist->id])?>
+                                        <?= Html::a('view', ['video_playlist/view', 'id' => $playlist->id])?>
                                     </button>
                                 </div>
                             </div>

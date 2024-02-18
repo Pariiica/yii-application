@@ -14,7 +14,7 @@ class VideoSearch extends Video
     public function rules()
     {
         return [
-            [['category', 'status', 'title'], 'integer'],];
+            [['category', 'status', 'type', 'title'], 'integer'],];
     }
 
     /**
@@ -60,7 +60,7 @@ class VideoSearch extends Video
         }
 
         if ($this->title) {
-            $query->andWhere(['title' => $this->title]);
+            $query->andWhere(['like', 'title', $this->title]);
         }
         if ($this->type) {
             $query->andWhere(['type' => $this->type]);
