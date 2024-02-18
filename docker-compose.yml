@@ -1,38 +1,152 @@
-version: '3.2'
+version: "3.8"
 
 services:
 
-  frontend:
-    build: frontend
-    ports:
-      - 20080:80
+  redis:
+    container_name: ${CONTAINER_REDIS}
+    image: redis:6
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Tehran
     volumes:
-      # Re-use local composer cache via host-volume
-      - ~/.composer-docker/cache:/root/.composer/cache:delegated
-      # Mount source-code for development
-      - ./:/app
-
-  backend:
-    build: backend
-    ports:
-      - 21080:80
-    volumes:
-      # Re-use local composer cache via host-volume
-      - ~/.composer-docker/cache:/root/.composer/cache:delegated
-      # Mount source-code for development
-      - ./:/app
+      - redis-data:/data
 
   mysql:
-    image: mysql:5.7
+    container_name: ${CONTAINER_MYSQL}
+    image: mysql:8
+    restart: unless-stopped
     environment:
-      - MYSQL_ROOT_PASSWORD=verysecret
-      - MYSQL_DATABASE=yii2advanced
-      - MYSQL_USER=yii2advanced
-      - MYSQL_PASSWORD=secret
+      TZ: Asia/Tehran
+      MYSQL_ROOT_PASSWORD: ${D_MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${D_MYSQL_DB_NAME}
+      MYSQL_USER: ${D_MYSQL_USERNAME}
+      MYSQL_PASSWORD: ${D_MYSQL_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./docker/mysql/custom.cnf:/etc/mysql/conf.d/custom.cnf
+      #- ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+    ports:
+      - "${PUB_MYSQL_PORT}:3306"
 
-  #pgsql:
-  #  image: postgres:9.5
-  #  environment:
-  #    - POSTGRES_DB=yii2advanced
-  #    - POSTGRES_USER=yii2advanced
-  #    - POSTGRES_PASSWORD=secret
+
+  php-app:
+    container_name: ${CONTAINER_PHP_APP}
+    image: yiisoftware/yii2-php:8.2-fpm
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Tehran
+    volumes:
+      #- /var/run/docker.sock:/var/run/docker.sock
+      - ./docker/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+      - ./docker/php/custom.conf:/usr/local/etc/php-fpm.d/custom.conf
+      # Re-use local composer cache via host-volume
+      - ~/.composer-docker/cache:/root/.composer/cache:delegated
+      # Mount source-code for development
+      - ./:/app
+    #ports:
+      #- "${PUB_PHP_FPM_PORT}:9000"
+    env_file: .env
+    working_dir: /app
+    depends_on:
+      - redis
+      - mysql
+    entrypoint: /app/docker/app/entrypoint.sh
+
+  nginx:
+    container_name: ${CONTAINER_NGINX}
+    image: nginx:latest
+#    restart: unless-stopped
+    environment:
+      TZ: Asia/Tehran
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      #- ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./docker/nginx/templates:/etc/nginx/templates
+      - ./docker/nginx/snippets:/etc/nginx/snippets
+      - ./docker/nginx/dhparam.pem:/etc/nginx/dhparam.pem
+      - ./docker/nginx/nginx-selfsigned.crt:/etc/ssl/certs/nginx-selfsigned.crt
+      - ./docker/nginx/nginx-selfsigned.key:/etc/ssl/private/nginx-selfsigned.key
+      - ./api/web:/app/api/web
+      - ./backend/web:/app/backend/web
+      - ./frontend/web:/app/frontend/web
+      #- ./admin/web:/app/admin/web
+      #- ./logs/nginx:/var/log/nginx
+    ports:
+      - "${PUB_NGINX_PORT}:80"
+      - "${PUB_NGINX_PORT_S}:443"
+      - "${PUB_NGINX_STUB_PORT}:8080"
+    #networks:
+    #  default:
+    #    aliases:
+    #      - ${D_PANEL_DOMAIN}
+    #      - ${D_API_DOMAIN}
+    #      - ${D_ADMIN_DOMAIN}
+    env_file: .env
+    working_dir: /app
+    depends_on:
+      - php-app
+
+  php-cli:
+    container_name: ${CONTAINER_PHP_CLI}
+    build: ./docker/php/
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Tehran
+    volumes:
+      - ./docker/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+      - ./docker/supervisor/supervisord.conf:/etc/supervisor/supervisord.conf
+      - ./docker/supervisor/conf.d:/etc/supervisor/conf.d
+      - ./:/app
+      - ./logs/supervisor:/var/log/supervisor
+    ports:
+      - "${PUB_SUPERVISOR_PORT}:9001"
+    env_file: .env
+    working_dir: /app
+    depends_on:
+      - php-app
+
+#  elasticsearch:
+#    container_name: ${CONTAINER_ELASTICSEARCH}
+#    image: elasticsearch:8.3.1
+#    restart: unless-stopped
+#    environment:
+#      - TZ=Asia/Tehran
+#      - xpack.security.enabled=false
+#      - discovery.type=single-node
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 2gb
+#    volumes:
+#      - elasticsearch-data:/usr/share/elasticsearch/data
+#    ports:
+#      - "${PUB_ELASTICSEARCH_PORT}:9200"
+#
+#  kibana:
+#    container_name: ${CONTAINER_KIBANA}
+#    image: kibana:8.3.1
+#    restart: unless-stopped
+#    environment:
+#      TZ: Asia/Tehran
+#      ELASTICSEARCH_HOSTS: http://${CONTAINER_ELASTICSEARCH}:9200
+#    volumes:
+#      - kibana-data:/usr/share/kibana/data
+#    ports:
+#      - "${PUB_KIBANA_PORT}:5601"
+#    depends_on:
+#      - elasticsearch
+
+volumes:
+  redis-data:
+  mysql-data:
+#  elasticsearch-data:
+#  kibana-data:
+
+networks:
+  default:
+    external: true
+    name: ${NETWORK_NAME}
