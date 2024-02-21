@@ -50,7 +50,7 @@ services:
     depends_on:
       - redis
       - mysql
-    entrypoint: /app/docker/app/entrypoint.sh
+#    entrypoint: /app/docker/app/entrypoint.sh
 
   nginx:
     container_name: ${CONTAINER_NGINX}
